@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\{HomeController, CategoryController, ProductController};
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,4 +19,8 @@ use Illuminate\Support\Facades\Route;
 
 // Auth::routes();
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get("/", [HomeController::class, "index"])->name("home");
+
+Route::get("/categories", [CategoryController::class, "index"])->name("categories");
+Route::get("/categories-detail", [CategoryController::class, "show"])->name("categories-detail");
+Route::get("/products-detail", [ProductController::class, "show"])->name("products-detail");
