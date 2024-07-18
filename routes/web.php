@@ -23,4 +23,4 @@ Route::get("/", [HomeController::class, "index"])->name("home");
 
 Route::get("/categories", [CategoryController::class, "index"])->name("categories");
 Route::get("/categories-detail", [CategoryController::class, "show"])->name("categories-detail");
-Route::get("/products-detail", [ProductController::class, "show"])->name("products-detail");
+Route::get("/products/{id}/detail", [ProductController::class, "show"])->name("products.detail");
