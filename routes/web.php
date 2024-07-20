@@ -1,7 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{HomeController, CategoryController, ProductController};
+use App\Http\Controllers\{
+    HomeController, 
+    CategoryController, 
+    ProductController,
+    CartController
+};
+
+use App\Http\Controllers\Auth\RegisterController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,4 +30,14 @@ Route::get("/", [HomeController::class, "index"])->name("home");
 
 Route::get("/categories", [CategoryController::class, "index"])->name("categories");
 Route::get("/categories-detail", [CategoryController::class, "show"])->name("categories-detail");
-Route::get("/products/{id}/detail", [ProductController::class, "show"])->name("products.detail");
+Route::get("/products/{id}", [ProductController::class, "show"])->name("products.detail");
+Route::get("/cart", [CartController::class, "index"])->name("detail");
+Route::delete("/cart/{id}", [CartController::class, "delete"])->name("cart-delete");
+Route::post("/checkout", [CartController::class, "delete"])->name("checkout");
+Route::get("/success", [CartController::class, "success"])->name("checkout-success");
+Route::get("/register/success", [RegisterController::class, "success"])->name("register-success");
+
+Route::get("/api-provinces", [ProductController::class, "apiProvinces"])->name("api-provinces");
+Route::get("/api-regencies", [ProductController::class, "apiRgencies"])->name("api-regencies");
+
+
