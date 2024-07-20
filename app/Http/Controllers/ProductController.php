@@ -87,4 +87,12 @@ class ProductController extends Controller
 
         return view("pages.detail", $data);
     }
+
+    public function apiProvinces(){
+
+    }
+
+    public function apiRgencies(){
+        
+    }
 }
