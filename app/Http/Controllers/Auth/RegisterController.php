@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+
 class RegisterController extends Controller
 {
     /*
@@ -52,6 +53,53 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+    }
+
+    public function showRegistrationForm()
+    {
+    
+        $categories= [
+            [
+                "id" => "P001",
+                "name" => "Gadgets",
+                "icon" => "categories-gadgets.svg",
+                "slug" => "gadgets"
+            ],
+            [
+                "id" => "P002",
+                "name" => "Furniture",
+                "icon" => "categories-furniture.svg",
+                "slug" => "furniture"
+            ],
+            [
+                "id" => "P003",
+                "name" => "Makeup",
+                "icon" => "categories-makeup.svg",
+                "slug" => "makeup"
+            ],
+            [
+                "id" => "P004",
+                "name" => "Sneaker",
+                "icon" => "categories-sneaker.svg",
+                "slug" => "sneaker"
+            ],
+            [
+                "id" => "P005",
+                "name" => "Tools",
+                "icon" => "categories-tools.svg",
+                "slug" => "tools"
+            ],
+            [
+                "id" => "P006",
+                "name" => "Baby",
+                "icon" => "categories-baby.svg",
+                "slug" => "baby"
+            ]
+        ];    
+        
+        return view('auth.register', [
+            'categories' => $categories
         ]);
     }
 
