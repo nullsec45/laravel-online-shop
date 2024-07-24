@@ -5,7 +5,7 @@ use App\Http\Controllers\{
     HomeController, 
     CategoryController, 
     ProductController,
-    CartController
+    CartController,
 };
 
 use App\Http\Controllers\Auth\RegisterController;
@@ -24,7 +24,7 @@ use App\Http\Controllers\Auth\RegisterController;
 //     return view('welcome');
 // });
 
-// Auth::routes();
+Auth::routes();
 
 Route::get("/", [HomeController::class, "index"])->name("home");
 
@@ -39,5 +39,6 @@ Route::get("/register/success", [RegisterController::class, "success"])->name("r
 
 Route::get("/api-provinces", [ProductController::class, "apiProvinces"])->name("api-provinces");
 Route::get("/api-regencies", [ProductController::class, "apiRgencies"])->name("api-regencies");
+Route::get("/api-register-check", [RegisterController::class, "registerCheck"])->name("api-register-check");
 
 
