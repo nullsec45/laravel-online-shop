@@ -6,6 +6,8 @@ use App\Http\Controllers\{
     CategoryController, 
     ProductController,
     CartController,
+    DashboardController,
+    DashboardProductController
 };
 
 use App\Http\Controllers\Auth\RegisterController;
@@ -31,7 +33,7 @@ Route::get("/", [HomeController::class, "index"])->name("home");
 Route::get("/categories", [CategoryController::class, "index"])->name("categories");
 Route::get("/categories-detail", [CategoryController::class, "show"])->name("categories-detail");
 Route::get("/products/{id}", [ProductController::class, "show"])->name("products.detail");
-Route::get("/cart", [CartController::class, "index"])->name("detail");
+Route::get("/cart", [CartController::class, "index"])->name("cart");
 Route::delete("/cart/{id}", [CartController::class, "delete"])->name("cart-delete");
 Route::post("/checkout", [CartController::class, "delete"])->name("checkout");
 Route::get("/success", [CartController::class, "success"])->name("checkout-success");
@@ -40,5 +42,13 @@ Route::get("/register/success", [RegisterController::class, "success"])->name("r
 Route::get("/api-provinces", [ProductController::class, "apiProvinces"])->name("api-provinces");
 Route::get("/api-regencies", [ProductController::class, "apiRgencies"])->name("api-regencies");
 Route::get("/api-register-check", [RegisterController::class, "registerCheck"])->name("api-register-check");
-
-
+Route::get("/dashboard", [DashboardController::class,"index"])->name("dashboard.index");
+Route::get("/dashboard/products", [DashboardProductController::class,"index"])->name("dashboard.products");
+Route::get("/dashboard/products/{id}", [DashboardProductController::class,"detail"])->name("dashboard.products-detail");
+Route::put("/dashboard/products/{id}", [DashboardProductController::class, "update"])->name("dashboard.product-update");
+Route::get("/dashboard/transactions", [DashboardController::class,"index"])->name("dashboard.transactions");
+Route::get("/dashboard/accounts", [DashboardController::class,"index"])->name("dashboard.accounts");
+Route::get("/dashboard/settings", [DashboardController::class,"index"])->name("dashboard.settings");
+Route::get("/dashboard/settings/store", [DashboardController::class,"index"])->name("dashboard.settings-store");
+Route::get("/dashboard/settings/account", [DashboardController::class,"index"])->name("dashboard.settings-account");
+Route::get("/dashboard-transaction-details/{id}", [DashboardController::class,"transaction"])->name("dashboard-transaction-details");
