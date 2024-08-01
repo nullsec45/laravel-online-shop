@@ -7,7 +7,9 @@ use App\Http\Controllers\{
     ProductController,
     CartController,
     DashboardController,
-    DashboardProductController
+    DashboardProductController,
+    DashboardTransactionController,
+    DashboardSettingController
 };
 
 use App\Http\Controllers\Auth\RegisterController;
@@ -44,11 +46,15 @@ Route::get("/api-regencies", [ProductController::class, "apiRgencies"])->name("a
 Route::get("/api-register-check", [RegisterController::class, "registerCheck"])->name("api-register-check");
 Route::get("/dashboard", [DashboardController::class,"index"])->name("dashboard.index");
 Route::get("/dashboard/products", [DashboardProductController::class,"index"])->name("dashboard.products");
+Route::get("/dashboard/products/create", [DashboardProductController::class, "create"])->name("dashboard.product-create");
+Route::post("/dashboard/products/store", [DashboardController::class, "store"])->name("dashboard.product-store");
 Route::get("/dashboard/products/{id}", [DashboardProductController::class,"detail"])->name("dashboard.products-detail");
 Route::put("/dashboard/products/{id}", [DashboardProductController::class, "update"])->name("dashboard.product-update");
-Route::get("/dashboard/transactions", [DashboardController::class,"index"])->name("dashboard.transactions");
-Route::get("/dashboard/accounts", [DashboardController::class,"index"])->name("dashboard.accounts");
-Route::get("/dashboard/settings", [DashboardController::class,"index"])->name("dashboard.settings");
-Route::get("/dashboard/settings/store", [DashboardController::class,"index"])->name("dashboard.settings-store");
-Route::get("/dashboard/settings/account", [DashboardController::class,"index"])->name("dashboard.settings-account");
-Route::get("/dashboard-transaction-details/{id}", [DashboardController::class,"transaction"])->name("dashboard-transaction-details");
+Route::get("/dashboard/transactions", [DashboardTransactionController::class,"index"])->name("dashboard.transactions");
+Route::get("/dashboard/transactions/{id}", [DashboardTransactionController::class,"show"])->name("dashboard.transaction-details");
+Route::put("/dashboard/transactions/{id}", [DashboardTransactionController::class,"update"])->name("dashboard.transaction-update");
+Route::get("/dashboard/settings/store", [DashboardSettingController::class,"store"])->name("dashboard.settings-store");
+Route::get("/dashboard/settings/account", [DashboardSettingController::class,"account"])->name("dashboard.settings-account");
+Route::get("/dashboard/settings/redirect", [DashboardSettingController::class,"redirect"])->name("dashboard.settings-redirect");
+
+
