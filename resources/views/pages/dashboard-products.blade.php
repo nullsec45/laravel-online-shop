@@ -16,7 +16,7 @@
         <div class="dashboard-content">
             <div class="row">
                 <div class="col-12">
-                    <a href="{{ '/' }}" class="btn btn-success">Add New Product</a>
+                    <a href="{{route('dashboard.product-create') }}" class="btn btn-success">Add New Product</a>
                 </div>
             </div>
             <div class="row mt-4">
