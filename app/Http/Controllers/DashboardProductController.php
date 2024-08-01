@@ -64,7 +64,58 @@ class DashboardProductController extends Controller
         return view('pages.dashboard-products-detail', $data);
     }
 
+    public function create(){
+        $data=[
+            "categories" => [
+                [
+                    "id" => "C1",
+                    "name" => "Gadgets",
+                    "icon" => "categories-gadgets.svg",
+                    "slug" => "gadgets"
+                ],
+                [
+                    "id" => "C2",
+                    "name" => "Furniture",
+                    "icon" => "categories-furniture.svg",
+                    "slug" => "furniture"
+                ],
+                [
+                    "id" => "C3",
+                    "name" => "Makeup",
+                    "icon" => "categories-makeup.svg",
+                    "slug" => "makeup"
+                ],
+                [
+                    "id" => "C4",
+                    "name" => "Sneaker",
+                    "icon" => "categories-sneaker.svg",
+                    "slug" => "sneaker"
+                ],
+                [
+                    "id" => "C5",
+                    "name" => "Tools",
+                    "icon" => "categories-tools.svg",
+                    "slug" => "tools"
+                ],
+                [
+                    "id" => "C6",
+                    "name" => "Baby",
+                    "icon" => "categories-baby.svg",
+                    "slug" => "baby"
+                ]
+            ]
+        ];
+
+        return view('pages.dashboard-products-create', $data);
+    }
+
+    public function store(){
+        return 'Oke';
+    }
+
     public function update(){
         return "update";
     }
+
+
 }
