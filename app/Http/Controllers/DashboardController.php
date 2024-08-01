@@ -40,8 +40,4 @@ class DashboardController extends Controller
 
         return view('pages.dashboard', $data);
     }
-
-    public function transaction(string $id){
-        
-    }
 }
