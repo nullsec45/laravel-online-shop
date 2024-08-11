@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+
 use App\Http\Controllers\{
     HomeController, 
     CategoryController, 
@@ -58,3 +60,6 @@ Route::get("/dashboard/settings/account", [DashboardSettingController::class,"ac
 Route::get("/dashboard/settings/redirect", [DashboardSettingController::class,"redirect"])->name("dashboard.settings-redirect");
 
 
+Route::prefix("admin")->name("admin.")->controller(AdminDashboardController::class)->group(function(){
+    Route::get("/","index")->name("dashboard");
+});
