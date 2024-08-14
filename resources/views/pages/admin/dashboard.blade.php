@@ -22,7 +22,7 @@ Admin Dashboard
                                 Customer
                             </div>
                             <div class="dashboard-card-subtitle">
-                                {{ number_format(9999999) }}
+                                {{ $user }}
                             </div>
                         </div>
                     </div>
@@ -34,7 +34,7 @@ Admin Dashboard
                                 Revenue
                             </div>
                             <div class="dashboard-card-subtitle">
-                                ${{ number_format(9999999) }}
+                                ${{ $revenue }}
                             </div>
                         </div>
                     </div>
@@ -46,7 +46,7 @@ Admin Dashboard
                                 Transaction
                             </div>
                             <div class="dashboard-card-subtitle">
-                                {{ number_format(9999999) }}
+                                {{ $transaction }}
                             </div>
                         </div>
                     </div>

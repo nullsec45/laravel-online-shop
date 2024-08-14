@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
@@ -37,7 +39,10 @@ class DashboardController extends Controller
                     ],
                     'created_at' => '2023-07-29'
                 ]
-            ]
+            ],
+            "user" => User::count(),
+            "revenue" => Transaction::sum("total_price"),
+            "transaction" => Transaction::count()
         ];
   
         return view('pages.admin.dashboard', $data);
