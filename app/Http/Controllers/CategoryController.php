@@ -95,7 +95,15 @@ class CategoryController extends Controller
         return view("pages.category", $data);
     }
 
-    public function show(){
-        return "oke";
-    }
+   public function create(){}
+    
+    public function store(){}
+    
+    public function show(){}
+
+    public function edit(){}
+
+    public function update(){}
+
+    public function delete(){}
 }
