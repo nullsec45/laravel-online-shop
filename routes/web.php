@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\{
+    DashboardController as AdminDashboardController, 
+    CategoryController as AdminCategoryController
+};
 
 use App\Http\Controllers\{
     HomeController, 
@@ -34,8 +37,10 @@ Auth::routes();
 
 Route::get("/", [HomeController::class, "index"])->name("home");
 
-Route::get("/categories", [CategoryController::class, "index"])->name("categories");
-Route::get("/categories-detail", [CategoryController::class, "show"])->name("categories-detail");
+// Route::get("/categories", [CategoryController::class, "index"])->name("categories");
+// Route::get("/categories-detail", [CategoryController::class, "show"])->name("categories-detail");
+
+Route::resource("categories",CategoryController::class);
 Route::get("/products/{id}", [ProductController::class, "show"])->name("products.detail");
 Route::get("/cart", [CartController::class, "index"])->name("cart");
 Route::delete("/cart/{id}", [CartController::class, "delete"])->name("cart-delete");
@@ -60,6 +65,7 @@ Route::get("/dashboard/settings/account", [DashboardSettingController::class,"ac
 Route::get("/dashboard/settings/redirect", [DashboardSettingController::class,"redirect"])->name("dashboard.settings-redirect");
 
 
-Route::prefix("admin")->name("admin.")->controller(AdminDashboardController::class)->group(function(){
-    Route::get("/","index")->name("dashboard");
+Route::prefix("admin")->name("admin.")->group(function(){
+    Route::get("/",[AdminDashboardController::class,"index"])->name("dashboard");
+    Route::resource("categories", AdminCategoryController::class);
 });
