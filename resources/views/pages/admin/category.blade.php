@@ -56,7 +56,16 @@
                 {data:"name", name:"name"},
                 {data:"photo", name:"photo"},
                 {data:"slug", name:"slug"},
-                {data:"action", name:"action", orderable:false, searchable:false, width:"15%"},
+                {
+                 data:"actions", 
+                 name:"actions", 
+                 orderable:false,
+                 searchable:false, 
+                 width:"15%",
+                 render: function (data, type, row, meta){
+                    return data;
+                 }
+                },
             ]
         });
     </script>
