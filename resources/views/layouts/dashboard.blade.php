@@ -16,7 +16,7 @@
     <div class="page-dashboard">
         <div class="d-flex" id="wrapper" data-aos="fade-right">
             {{-- sidebar --}}
-            @if($page == 'admin')
+            @if(request()->is('admin*'))
             @include('includes.dashboard.sidebar-admin')
             @else
             @include('includes.dashboard.sidebar')
