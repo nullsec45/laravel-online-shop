@@ -18,22 +18,25 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <a href="{{route('categories.create')}}" class="btn btn-primary">Add Category</a>
+                            <div class="container-fluid">
+                             <a href="{{route('admin.categories.create')}}" class="btn btn-primary float-right mb-4">Add Category</a>
+                            </div>
+                            <div class="table table-responsive mt-4">
+                                <table class="table-hover scroll-horizontal-vertical w-100 mt-4" id="table-categories">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Foto</th>
+                                            <th>Slug</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
                         </div>
-                        <div class="table table-responsive">
-                            <table class="table-hover scroll-horizontal-vertical w-100 mt-4" id="table-categories">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Foto</th>
-                                        <th>Slug</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
+                       
                     </div>
                 </div>
             </div>
