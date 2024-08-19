@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\Admin\CategoryRequest;
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Yajra\DataTables\Facades\DataTables;
 use App\Http\Controllers\Controller;
-
 use Illuminate\Support\Facades\Storage;
+use Yajra\DataTables\Facades\DataTables;
+
+use App\Http\Requests\Admin\CategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -44,18 +45,51 @@ class CategoryController extends Controller
 
         }
 
-        return view("pages.admin.category");
+        return view("pages.admin.categories.index");
     }
 
-    public function create(CategoryRequest $request){}
+    public function create(){
+        return view("pages.admin.categories.create");
+    }
     
-    public function store(){}
+    public function store(CategoryRequest $request){
+        $data=$request->all();
+        $data["slug"]=Str::slug($request->name);
+        $data["photo"]=$request->file("photo")->store("assets/categories","public");
+   
+        Category::create($data);
+        return redirect()->route("admin.categories.index");
+    }
     
     public function show(){}
 
-    public function edit(){}
+    public function edit($id){
+        $category=Category::findorFail($id);
 
-    public function update(CategoryRequest $request){}
+        $data=[
+            "category" => $category
+        ];
 
-    public function delete(){}
+        return view("pages.admin.categories.edit", $data);
+    }
+
+    public function update(CategoryRequest $request, $id){
+        $data=$request->all();
+        $data["slug"]=Str::slug($request->name);
+        $data["photo"]=$request->file("photo")->store("assets/categories","public");
+
+        $category=Category::findorFail($id);
+
+        $category->update($data);
+   
+        return redirect()->route("admin.categories.index");
+
+    }
+
+    public function destroy($id){
+        $category=Category::findOrFail($id);
+        $category->delete();
+        
+        return redirect()->route("admin.categories.index");
+    }
 }
