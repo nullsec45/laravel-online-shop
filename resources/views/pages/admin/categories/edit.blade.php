@@ -58,32 +58,3 @@
     </div>
 </div>
 @endsection
-
-@push('addon-script')
-    <script>
-        let datatable=$("#table-categories").DataTable({
-            processing:true,
-            serverSide:true,
-            ordering:true,
-            ajax:{
-                url:"{!! url()->current() !!}"
-            },
-            columns:[
-                {data:"id", name:"id"},
-                {data:"name", name:"name"},
-                {data:"photo", name:"photo"},
-                {data:"slug", name:"slug"},
-                {
-                 data:"actions", 
-                 name:"actions", 
-                 orderable:false,
-                 searchable:false, 
-                 width:"15%",
-                 render: function (data, type, row, meta){
-                    return data;
-                 }
-                },
-            ]
-        });
-    </script>
-@endpush
