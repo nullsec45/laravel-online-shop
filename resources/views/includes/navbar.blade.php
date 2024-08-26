@@ -20,7 +20,7 @@
                     <a href="/" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route("categories")}}" class="nav-link">Categories</a>
+                    <a href="{{route("categories.index")}}" class="nav-link">Categories</a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">Rewards</a>
@@ -35,55 +35,6 @@
                     >Sign In</a>
                 </li>
             </ul>
-
-            <!-- Desktop Menu -->
-            {{-- <ul class="navbar-nav d-none d-lg-flex">
-                <li class="nav-item dropdown">
-                    <a
-                        href="#"
-                        class="nav-link"
-                        id="navbarDropdown"
-                        role="button"
-                        data-toggle="dropdown"
-                    >
-                        <img
-                            src="images/icon-user.png"
-                            alt=""
-                            class="rounded-circle mr-2 profile-picture"
-                        />
-                        Hi, John Doe
-                    </a>
-                    <div class="dropdown-menu">
-                        <a href="/dashboard" class="dropdown-item">Dashboard</a>
-                        <a href="/dashboard-settings-account" class="dropdown-item">
-                            Settings
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/logout">
-                            Logout
-                        </a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a href="/cart" class="nav-link d-inline-block mt-2">
-                        <img src="images/icon-cart-filled.svg" alt="" />
-                        <div class="card-badge">3</div>
-                    </a>
-                </li>
-            </ul>
-
-            <ul class="navbar-nav d-block d-lg-none">
-                <li class="nav-item">
-                    <a href="/dashboard" class="nav-link">
-                        Hi, John Doe
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/cart" class="nav-link d-inline-block">
-                        Cart
-                    </a>
-                </li>
-            </ul>     --}}
         </div>
     </div>
 </nav>
