@@ -16,6 +16,10 @@
              class="list-group-item list-group-item-action {{ (request()->is('admin/categories*')) ? 'active' : '' }} ">
              Categories
          </a>
+          <a href="{{ route('admin.users.index') }}"
+             class="list-group-item list-group-item-action {{ (request()->is('admin/users*')) ? 'active' : '' }} ">
+             users
+         </a>
          <!-- <a href="{{ route('dashboard.transactions') }}"
              class="list-group-item list-group-item-action {{ (request()->is('dashboard/transactions*')) ? 'active' : '' }} ">
              Transactions
