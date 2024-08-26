@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{
     DashboardController as AdminDashboardController, 
-    CategoryController as AdminCategoryController
+    CategoryController as AdminCategoryController,
+    UserController
 };
 
 use App\Http\Controllers\{
@@ -14,7 +15,7 @@ use App\Http\Controllers\{
     DashboardController,
     DashboardProductController,
     DashboardTransactionController,
-    DashboardSettingController
+    DashboardSettingController,
 };
 
 use App\Http\Controllers\Auth\RegisterController;
@@ -68,4 +69,5 @@ Route::get("/dashboard/settings/redirect", [DashboardSettingController::class,"r
 Route::prefix("admin")->name("admin.")->group(function(){
     Route::get("/",[AdminDashboardController::class,"index"])->name("dashboard");
     Route::resource("categories", AdminCategoryController::class);
+    Route::resource("users",UserController::class);
 });
