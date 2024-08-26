@@ -51,11 +51,6 @@ class DashboardSettingController extends Controller
                 'categories_id' => 2,
                 'store_status' => 1,
             ],
-            "categories" => [
-                ['id' => 1, 'name' => 'Elektronik'],
-                ['id' => 2, 'name' => 'Pakaian'],
-                ['id' => 3, 'name' => 'Peralatan Rumah']
-            ]
         ];
 
         return view('pages.dashboard-settings', $data);
