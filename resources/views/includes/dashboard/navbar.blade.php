@@ -21,7 +21,7 @@
                     </a>
                     <div class="dropdown-menu">
                         <a href="{{ route('dashboard.index') }}" class="dropdown-item">Dashboard</a>
-                        <a href="{{ route('dashboard.settings-account') }}" class="dropdown-item">
+                        <a href="{{ route('dashboard.settings.account') }}" class="dropdown-item">
                             Settings
                         </a>
                         <div class="dropdown-divider"></div>
