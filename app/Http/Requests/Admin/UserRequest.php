@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserRequest extends FormRequest
@@ -23,7 +24,7 @@ class UserRequest extends FormRequest
     {
         return [
             "name" => ["required","string","max:50"],
-            "email" => ["required","email","unique:users"],
+            "email" => ["required","email",Rule::unique('users', 'email')->ignore($this->category)],
             "password" => ["required","string"],
             "roles" => ["nullable","string","in:ADMIN,USER"]
         ];
