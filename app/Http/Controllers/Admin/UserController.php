@@ -47,7 +47,20 @@ class UserController extends Controller
     }
 
     public function create(){
-        return view("pages.admin.users.create");
+        $data=[
+            "roles" => [
+                [
+                    "value" => "ADMIN",
+                    "teks" => "Admin"
+                ],
+                [
+                    "value" => "USER",
+                    "teks" => "User"
+                ]
+            ]
+        ];
+
+        return view("pages.admin.users.create", $data);
     }
     
     public function store(UserRequest $request){
