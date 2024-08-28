@@ -8,7 +8,7 @@
              class="list-group-item list-group-item-action {{ (request()->is('admin/dashboard')) ? 'active' : '' }} ">
              Dashboard
          </a>
-         <a href="{{ route('dashboard.products') }}"
+         <a href="{{ route('dashboard.products.index') }}"
              class="list-group-item list-group-item-action {{ (request()->is('dashboard/products*')) ? 'active' : '' }} ">
             Products
          </a>
@@ -20,20 +20,13 @@
              class="list-group-item list-group-item-action {{ (request()->is('admin/users*')) ? 'active' : '' }} ">
              users
          </a>
-         <!-- <a href="{{ route('dashboard.transactions') }}"
-             class="list-group-item list-group-item-action {{ (request()->is('dashboard/transactions*')) ? 'active' : '' }} ">
-             Transactions
-         </a>
-         <a href="{{ route('dashboard.settings-account') }}"
-             class="list-group-item list-group-item-action {{ (request()->is('dashboard/account*')) ? 'active' : '' }} ">
-             Users
-         </a>
+      
          <a href="{{ route('logout') }}" onclick="event.preventDefault();
                   document.getElementById('logout-form').submit();" class="list-group-item list-group-item-action">
              Sign Out
          </a>
          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
              @csrf
-         </form> -->
+         </form>
      </div>
  </div>
