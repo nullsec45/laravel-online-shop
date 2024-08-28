@@ -55,7 +55,9 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request){
         $data=$request->all();
         $data["slug"]=Str::slug($request->name);
-        $data["photo"]=$request->file("photo")->store("assets/categories","public");
+        $file=$request->file("photo");
+        $fileName=$this->helper->fileUploadHandling($file, "category","assets/categories","store");
+        $data["photo"]=$fileName;
    
         Category::create($data);
         return redirect()->route("admin.categories.index");
@@ -76,14 +78,15 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, $id){
         $data=$request->all();
         $data["slug"]=Str::slug($request->name);
-        $data["photo"]=$request->file("photo")->store("assets/categories","public");
+        $file=$request->file("photo");
+        $fileName=$this->helper->fileUploadHandling($file, "category","assets/categories","update");
+        $data["photo"]=$fileName;
 
         $category=Category::findorFail($id);
 
         $category->update($data);
    
         return redirect()->route("admin.categories.index");
-
     }
 
     public function destroy($id){
