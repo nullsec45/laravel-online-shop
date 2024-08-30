@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ProductRequest extends FormRequest
 {
@@ -20,13 +21,13 @@ class ProductRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
-    {
+    {     
         return [
-           "name" => ["required"],
-           "users_id" => ["required","exits:users,id"],
-           "categories_id" => ["required","exists:users,id"],
-           "price" => ["required","integer"],
-           "description" => ["required"]
+            "name" => ["required"],
+            "users_id" => ["required", "exists:users,id"],
+            "categories_id" => ["required", "exists:categories,id"], // Jangan lupa untuk mengubah nama tabel jika perlu
+            "price" => ["required", "integer"],
+            "description" => ["required"]
         ];
     }
 }
