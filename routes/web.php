@@ -4,13 +4,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{
     DashboardController as AdminDashboardController, 
     CategoryController as AdminCategoryController,
-    UserController
+    UserController,
+    ProductController
 };
 
 use App\Http\Controllers\{
     HomeController, 
     CategoryController, 
-    ProductController,
     CartController,
     DashboardController,
     DashboardProductController,
@@ -63,21 +63,9 @@ Route::prefix("dashboard")->name("dashboard.")->group(function(){
         Route::get("redirect","redirect")->name("redirect");
     });
 });
-// Route::get("/dashboard/products", [DashboardProductController::class,"index"])->name("dashboard.products");
-// Route::get("/dashboard/products/create", [DashboardProductController::class, "create"])->name("dashboard.product-create");
-// Route::post("/dashboard/products/store", [DashboardController::class, "store"])->name("dashboard.product-store");
-// Route::get("/dashboard/products/{id}", [DashboardProductController::class,"detail"])->name("dashboard.products-detail");
-// Route::put("/dashboard/products/{id}", [DashboardProductController::class, "update"])->name("dashboard.product-update");
-// Route::get("/dashboard/transactions", [DashboardTransactionController::class,"index"])->name("dashboard.transactions");
-// Route::get("/dashboard/transactions/{id}", [DashboardTransactionController::class,"show"])->name("dashboard.transaction-details");
-// Route::put("/dashboard/transactions/{id}", [DashboardTransactionController::class,"update"])->name("dashboard.transaction-update");
-// Route::get("/dashboard/settings/store", [DashboardSettingController::class,"store"])->name("dashboard.settings-store");
-// Route::get("/dashboard/settings/account", [DashboardSettingController::class,"account"])->name("dashboard.settings-account");
-// Route::get("/dashboard/settings/redirect", [DashboardSettingController::class,"redirect"])->name("dashboard.settings-redirect");
-
 
 Route::prefix("admin")->name("admin.")->group(function(){
-    Route::get("/",[AdminDashboardController::class,"index"])->name("dashboard");
+    Route::get("dashboard",[AdminDashboardController::class,"index"])->name("dashboard");
     Route::resource("categories", AdminCategoryController::class);
     Route::resource("users",UserController::class);
     Route::resource("products",ProductController::class);
