@@ -56,7 +56,7 @@ Admin Dashboard
                 <div class="col-12 mt-2">
                     <h5 class="mb-3">Recent Transactions</h5>
                     @foreach ($transaction_data as $transaction)
-                    <a href="{{ route('dashboard.transactions', $transaction['id']) }}" class="card card-list d-block">
+                    <a href="{{ route('dashboard.transactions.index', $transaction['id']) }}" class="card card-list d-block">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-1">
