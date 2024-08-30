@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Category;
+use App\Models\User;
 use App\Models\Product;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 use App\Http\Requests\Admin\ProductRequest;
@@ -25,10 +25,10 @@ class ProductController extends Controller
                             Action
                             </button>
                             <div class="dropdown-menu" aria-labelledby="action' .  $item->id . '">
-                                    <a class="dropdown-item" href="' . route('admin.categories.edit', $item->id) . '">
+                                    <a class="dropdown-item" href="' . route('admin.products.edit', $item->id) . '">
                                         Sunting
                                     </a>
-                                    <form action="' . route('admin.categories.destroy', $item->id) . '" method="POST">
+                                    <form action="' . route('admin.products.destroy', $item->id) . '" method="POST">
                                         ' . method_field('delete') . csrf_field() . '
                                         <button type="submit" class="dropdown-item text-danger">
                                             Hapus
@@ -49,27 +49,32 @@ class ProductController extends Controller
     }
 
     public function create(){
-        return view("pages.admin.products.create");
+        $data=[
+            "users" => User::all(),
+            "categories" => Category::all()
+        ];
+
+        return view("pages.admin.products.create", $data);
     }
     
     public function store(ProductRequest $request){
         $data=$request->all();
         $data["slug"]=Str::slug($request->name);
-        $file=$request->file("photo");
-        $fileName=$this->helper->fileUploadHandling($file, "category","assets/products","store");
-        $data["photo"]=$fileName;
    
         Product::create($data);
+
         return redirect()->route("admin.products.index");
     }
     
     public function show(){}
 
     public function edit($id){
-        $category=Product::findorFail($id);
+        $product=Product::findorFail($id);
 
         $data=[
-            "category" => $category
+            "product" => $product,
+              "users" => User::all(),
+            "categories" => Category::all()
         ];
 
         return view("pages.admin.products.edit", $data);
@@ -78,20 +83,17 @@ class ProductController extends Controller
     public function update(ProductRequest $request, $id){
         $data=$request->all();
         $data["slug"]=Str::slug($request->name);
-        $file=$request->file("photo");
-        $fileName=$this->helper->fileUploadHandling($file, "category","assets/products","update");
-        $data["photo"]=$fileName;
 
-        $category=Product::findorFail($id);
+        $product=Product::findorFail($id);
 
-        $category->update($data);
+        $product->update($data);
    
         return redirect()->route("admin.products.index");
     }
 
     public function destroy($id){
-        $category=Product::findOrFail($id);
-        $category->delete();
+        $product=Product::findOrFail($id);
+        $product->delete();
         
         return redirect()->route("admin.products.index");
     }
