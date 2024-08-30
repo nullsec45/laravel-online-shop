@@ -1,15 +1,15 @@
  <!-- Sidebar -->
  <div class="border-right" id="sidebar-wrapper">
      <div class="sidebar-heading text-center">
-         <!-- <img src="{{url('/images/admin.png')}}" alt="" class="my-4 img-fluid" /> -->
+         <img src="{{url('/images/admin.png')}}" alt="" class="my-4 img-fluid" />
      </div>
      <div class="list-group list-group-flush">
          <a href="{{ route('admin.dashboard') }}"
-             class="list-group-item list-group-item-action {{ (request()->is('admin/dashboard')) ? 'active' : '' }} ">
+             class="list-group-item list-group-item-action {{ (request()->is('admin/dashboard**')) ? 'active' : '' }} ">
              Dashboard
          </a>
-         <a href="{{ route('dashboard.products.index') }}"
-             class="list-group-item list-group-item-action {{ (request()->is('dashboard/products*')) ? 'active' : '' }} ">
+         <a href="{{ route('admin.products.index') }}"
+             class="list-group-item list-group-item-action {{ (request()->is('admin/products*')) ? 'active' : '' }} ">
             Products
          </a>
          <a href="{{ route('admin.categories.index') }}"
