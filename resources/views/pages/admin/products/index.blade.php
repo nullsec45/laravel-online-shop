@@ -60,6 +60,7 @@
                 {data:"name", name:"name"},
                 {data:"user.name", name:"user.name"},
                 {data:"category.name", name:"category.name"},
+                {data:"price", name:"price"},
                 {
                  data:"actions", 
                  name:"actions", 
