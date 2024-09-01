@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductGalleryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{
     DashboardController as AdminDashboardController, 
@@ -69,4 +70,5 @@ Route::prefix("admin")->name("admin.")->group(function(){
     Route::resource("categories", AdminCategoryController::class);
     Route::resource("users",UserController::class);
     Route::resource("products",ProductController::class);
+    Route::resource("product-galleries",ProductGalleryController::class);
 });
