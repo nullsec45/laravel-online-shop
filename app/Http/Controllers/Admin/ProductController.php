@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Category;
 use App\Models\User;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 use App\Http\Requests\Admin\ProductRequest;
@@ -38,10 +39,8 @@ class ProductController extends Controller
                         </div>
                     </div>
                 ';
-            })->editColumn("photo",function($item){
-                return $item->photo ? '<img src="'.$item->photo.'" style="max-height:40px;" />' : '';
-            })->rawColumns(["actions","photo"])
-            ->make(true);
+            })>rawColumns(["actions"])
+              ->make(true);
 
         }
 
