@@ -8,7 +8,7 @@
 <div class="section-content section-dashboard-home" data-aos="fade-up">
     <div class="container-fluid">
         <div class="dashboard-heading">
-            <h2 class="dashboard-title">Galleries</h2>
+            <h2 class="dashboard-title">Product Galleries</h2>
             <p class="dashboard-subtitle">
                 List of Galleries
             </p>
@@ -19,7 +19,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="container-fluid">
-                             <a href="{{route('admin.products.create')}}" class="btn btn-primary float-right mb-4">Add Product</a>
+                             <a href="{{route('admin.product-galleries.create')}}" class="btn btn-primary float-right mb-4">Add Photo</a>
                             </div>
                             <div class="table table-responsive mt-4">
                                 <table class="table-hover scroll-horizontal-vertical w-100 mt-4" id="table-products">
