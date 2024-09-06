@@ -18,11 +18,15 @@ class Helpers{
      public function fileUploadHandling($requestFile, $prefixName, $path, $typeUpload, $fileOld=null){
         $file=$requestFile;
         
-        if($typeUpload == "update"){
+        if($typeUpload == "update" || $typeUpload == "delete"){
             $storage=Storage::disk('public');
             $fileOld=$path."/".$fileOld;
             if ($storage->exists($fileOld)) {
                 $storage->delete($fileOld);
+            }
+
+            if($typeUpload == "delete"){
+                return;
             }
         }
 
