@@ -27,45 +27,23 @@
                     @endif
                     <div class="card">
                         <div class="card-body">
-                           <form action="{{route('admin.products.store')}}" method="POST" enctype="multipart/form-data">
+                           <form action="{{route('admin.product-galleries.store')}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="product_name">Product Name</label>
-                                            <input type="text" name="name" id="product_name" class="form-control" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="users_id">Product Owner</label>
-                                             <select name="users_id" id="users_id" class="form-control">
-                                                @foreach ($users as $user )
-                                                    <option value="{{$user->id}}">{{$user->name}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="categories_id">Product Category</label>
-                                             <select name="categories_id" id="categories_id" class="form-control">
-                                                @foreach ($categories as $category )
-                                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                            <label for="products_id">Products</label>
+                                             <select name="products_id" id="products_id" class="form-control">
+                                                @foreach ($products as $product )
+                                                    <option value="{{$product->id}}">{{$product->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
                                    <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="price">Price</label>
-                                            <input type="number" name="price" id="price" class="form-control" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="editor">Product Description</label>
-                                            <textarea name="description" id="editor" class="form-control" cols="3" rows="3"></textarea>
+                                            <label for="photos">Photo Product</label>
+                                            <input type="file" name="photos" id="photos" class="form-control" required>
                                         </div>
                                     </div>
                                 </div>
@@ -82,12 +60,4 @@
         </div>
     </div>
 </div>
-
 @endsection
-
-@push('addon-script')
-<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
-<script>
-CKEDITOR.replace("editor");
-</script>
-@endpush
