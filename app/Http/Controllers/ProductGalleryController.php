@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProductGallery;
 use Illuminate\Http\Request;
-use App\Models\Category;
 use App\Models\Product;
-use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\Admin\ProductGalleryRequest;
@@ -25,26 +23,56 @@ class ProductGalleryController extends Controller
                             Action
                             </button>
                             <div class="dropdown-menu" aria-labelledby="action' .  $item->id . '">
-                                    <a class="dropdown-item" href="' . route('admin.product-galleries.edit', $item->id) . '">
-                                        Sunting
-                                    </a>
                                     <form action="' . route('admin.product-galleries.destroy', $item->id) . '" method="POST">
                                         ' . method_field('delete') . csrf_field() . '
                                         <button type="submit" class="dropdown-item text-danger">
-                                            Hapus
+                                            Delete
                                         </button>
                                     </form>
                                 </div>
                         </div>
                     </div>
                 ';
-            })->editColumn("photo",function($item){
-                return $item->photo ? '<img src="'.$item->photo.'" style="max-height:40px;" />' : '';
-            })->rawColumns(["actions","photo"])
+            })->editColumn("photos",function($item){
+                return $item->photos ? '<img src="'.asset("storage/assets/products/".$item->photos).'" style="max-height:40px;" />' : '';
+            })->rawColumns(["actions","photos"])
             ->make(true);
 
         }
 
         return view("pages.admin.product-galleries.index");
+    }
+
+    public function create(){
+        $products=Product::all();
+
+        return view("pages.admin.product-galleries.create",[
+            "products"  => $products
+        ]);
+    }
+
+    public function store(ProductGalleryRequest $request){
+       $data=$request->all();
+
+       $file=$request->file("photos");
+       $fileName=$this->helper->fileUploadHandling($file,"photo_products","assets/products","store",null);
+
+       $data["photos"]=$fileName;
+       ProductGallery::create($data);
+
+       return redirect()->route("admin.product-galleries.index");
+    }
+
+    public function destroy(string $id){
+       $product=ProductGallery::findOrFail($id);
+
+       if(!$product){
+          return redirect()->route("admin.product-galleries.index")->with("error","Photo product not found");
+       }
+       $file=$product->photos;
+       $this->helper->fileUploadHandling(null, null,"assets/products","delete",$file);
+       $product->delete();
+
+       return redirect()->route("admin.product-galleries.index");
     }
 }
