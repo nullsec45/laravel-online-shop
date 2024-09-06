@@ -39,7 +39,7 @@ class ProductController extends Controller
                         </div>
                     </div>
                 ';
-            })>rawColumns(["actions"])
+            })->rawColumns(["actions"])
               ->make(true);
 
         }
