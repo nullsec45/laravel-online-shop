@@ -11,7 +11,7 @@ class ProductGalleryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,8 +22,8 @@ class ProductGalleryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "photos" => "required|exits:products,id",
-            "products_id" => "required|image"
+            "products_id" => "required|exists:products,id",
+            "photos" => "required|image"
         ];
     }
 }
