@@ -3,7 +3,6 @@
 @section('title')
     Store Homepage
 @endsection
-
 @section('content')
 <div class="page-content page-home">
     <section class="store-carousel">
@@ -60,27 +59,33 @@
                 </div>
             </div>
             <div class="row">
-                @php $incrementCategory = 0 @endphp
-                @foreach ($categories as $category)
+                @forelse ($categories as $category)
                     <div
                         class="col-6 col-md-3 col-lg-2"
                         data-aos="fade-up"
-                        data-aos-delay="{{ $incrementCategory+= 100 }}"
+                        data-aos-delay="{{ $loop->iteration += 100 }}"
                     >
-                        <a href="#" class="component-categories d-block">
+                        <a href="{{route('categories.show',$category->slug)}}" class="component-categories d-block">
                             <div class="categories-image">
                                 <img
-                                    src="images/{{$category["icon"]}}"
+                                    src="{{asset('storage/assets/categories/'.$category->photo)}}"
                                     alt=""
                                     class="w-100"
                                 />
                             </div>
                             <p class="categories-text">
-                                {{ $category["name"] }}
+                                {{ $category->name }}
                             </p>
                         </a>
                     </div>
-                @endforeach
+                @empty
+                    <div class="col-12 text-center py-5"
+                        data-aos="fade-up"
+                        data-aos-delay="100"
+                    >
+                        No Categories Found
+                    </div>
+                @endforelse
             </div>
         </div>
     </section>
@@ -94,7 +99,7 @@
             </div>
             <div class="row">
                 @php $incrementProduct = 0 @endphp
-                @foreach ($products as $product)
+                @forelse ($products as $product)
                     <div
                         class="col-6 col-md-4 col-lg-3"
                         data-aos="fade-up"
@@ -104,18 +109,31 @@
                             <div class="products-thumbnail">
                                 <div
                                     class="products-image"
-                                    style="background-image: url('images/{{$product["icon"]}}');"
+                                    style="
+                                        @if($product->galleries)
+                                            background-image: url('{{asset('storage/assets/products/'.$product->galleries->first()->photos)}}');
+                                        @else
+                                            background-color:#eee
+                                        @endif
+                                    "
                                 ></div>
                             </div>
                             <div class="products-text">
-                                Produk {{ $product["name"] }}
+                                Produk {{ $product->name }}
                             </div>
                             <div class="products-price">
-                                ${{ $product["price"] }}
+                                ${{ $product->price }}
                             </div>
                         </a>
                     </div>
-                @endforeach
+                @empty
+                    <div class="col-12 text-center py-5"
+                        data-aos="fade-up"
+                        data-aos-delay="100"
+                    >
+                        No Products Found
+                    </div>  
+                @endforelse
             </div>
         </div>
     </section>
