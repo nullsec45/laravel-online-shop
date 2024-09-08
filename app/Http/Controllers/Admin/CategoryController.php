@@ -39,7 +39,7 @@ class CategoryController extends Controller
                     </div>
                 ';
             })->editColumn("photo",function($item){
-                return $item->photo ? '<img src="'.$item->photo.'" style="max-height:40px;" />' : '';
+                return $item->photo ? '<img src="'.asset("storage/assets/categories/".$item->photo).'" style="max-height:90px;" />' : '';
             })->rawColumns(["actions","photo"])
             ->make(true);
 
