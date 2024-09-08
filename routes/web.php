@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\ProductGalleryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{
     DashboardController as AdminDashboardController, 
     CategoryController as AdminCategoryController,
     UserController,
-    ProductController
+    ProductController,
+    ProductGalleryController
 };
 
 use App\Http\Controllers\{
