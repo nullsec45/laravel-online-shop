@@ -3,7 +3,6 @@
 @section('title')
     Store Category
 @endsection
-
 @section('content')
 <div class="page-content page-home">
     <section class="store-trend-categories">
@@ -21,10 +20,10 @@
                   data-aos="fade-up"
                   data-aos-delay="{{ $incrementCategory+= 100 }}"
               >
-                  <a href="{{ route('categories-detail', $category["slug"]) }}" class="component-categories d-block">
+                  <a href="{{ route('categories.show', $category->slug) }}" class="component-categories d-block">
                       <div class="categories-image">
                           <img
-                          src="{{ Storage::url($category["icon"]) }}"
+                          src="{{ asset('storage/assets/categories/'.$category->photo) }}"
                           alt=""
                           class="w-100"
                           />
@@ -60,25 +59,24 @@
                   data-aos="fade-up"
                   data-aos-delay="{{ $incrementProduct+= 100 }}"
               >
-                  <a href="{{ route('products-detail', $product["slug"]) }}" class="component-products d-block">
+                  <a href="{{ route('products.show', $product->slug) }}" class="component-products d-block">
                       <div class="products-thumbnail">
                           <div
                           class="products-image"
                           style="
-                              {{-- @if($product->galleries->count())
-                                  background-image: url('{{ Storage::url($product->galleries->first()->photos) }}')
+                              @if($product->galleries->count())
+                                  background-image: url('{{ asset('storage/assets/products/'.$product->galleries->first()->photos) }}')
                               @else
                                   background-color: #eee
-                              @endif --}}
-                              background-image: url('{{ Storage::url($product["photo"]) }}')
+                              @endif
                           "
                           ></div>
                       </div>
                       <div class="products-text">
-                          {{ $product["name"]}}
+                          {{ $product->name}}
                       </div>
                       <div class="products-price">
-                          ${{ $product["price"] }}
+                          ${{ $product->price }}
                       </div>
                   </a>
               </div>
@@ -92,7 +90,7 @@
         </div>
         <div class="row">
           <div class="col-12 mt-4">
-            {{-- {{ $products["slug"]}} --}}
+            <!-- {{ $products->links()}}  -->
           </div>
         </div>
       </div>
