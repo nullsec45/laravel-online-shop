@@ -16,7 +16,7 @@
         <div class="dashboard-content">
             <div class="row">
                 <div class="col-12">
-                    <form action="{{ route('dashboard.settings-redirect','dashboard.settings-store') }}" method="POST"
+                    <form action="{{ route('dashboard.settings.redirect','dashboard.settings.store') }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="card">

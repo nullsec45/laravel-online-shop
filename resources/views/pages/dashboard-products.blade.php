@@ -16,13 +16,13 @@
         <div class="dashboard-content">
             <div class="row">
                 <div class="col-12">
-                    <a href="{{route('dashboard.product-create') }}" class="btn btn-success">Add New Product</a>
+                    <a href="{{route('dashboard.products.create') }}" class="btn btn-success">Add New Product</a>
                 </div>
             </div>
             <div class="row mt-4">
                 @foreach ($products as $product)
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <a href="{{ route('dashboard.products-detail', $product['id']) }}"
+                    <a href="{{ route('dashboard.products.show', $product['id']) }}"
                         class="card card-dashboard-product d-block">
                         <div class="card-body">
                             <img src="{{ asset($product['galleries'][0]['photos']) }}" alt=""

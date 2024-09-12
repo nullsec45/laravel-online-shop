@@ -30,7 +30,7 @@
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                             aria-labelledby="pills-home-tab">
                             @foreach ($sellTransactions as $transaction)
-                                <a href="{{ route('dashboard.transaction-details', $transaction['id']) }}" class="card card-list d-block">
+                                <a href="{{ route('dashboard.transactions.show', $transaction['id']) }}" class="card card-list d-block">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-1">
@@ -57,7 +57,7 @@
                         <div class="tab-pane fade" id="pills-profile" role="tabpanel"
                             aria-labelledby="pills-profile-tab">
                            @foreach ($buyTransactions as $transaction)
-                                <a href="{{ route('dashboard.transaction-details', $transaction['id']) }}" class="card card-list d-block">
+                                <a href="{{ route('dashboard.transactions.show', $transaction['id']) }}" class="card card-list d-block">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-1">

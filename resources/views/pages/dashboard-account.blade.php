@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-12">
                     <form id="locations"
-                        action="{{ route('dashboard.settings-redirect','dashboard.settings-account') }}" method="POST"
+                        action="{{ route('dashboard.settings.redirect','dashboard.settings-account') }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="card">
