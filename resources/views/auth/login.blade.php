@@ -1,5 +1,9 @@
 @extends('layouts.auth')
 
+@section('title')
+    Login
+@endsection
+
 @section('content')
 <div class="page-content page-auth">
     <div class="section-store-auth" data-aos="fade-up">
@@ -21,7 +25,10 @@
                         @csrf
                         <div class="form-group">
                             <label>Email Address</label>
-                            <input id="email" type="email" class="form-control w-75 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            <input id="email" type="email" 
+                                   class="form-control w-75 @error('email') is-invalid @enderror" 
+                                   name="email" value="{{ old('email') }}" 
+                                   required autocomplete="email" autofocus>
                             
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
