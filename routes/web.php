@@ -63,6 +63,7 @@ Route::prefix("dashboard")->name("dashboard.")->group(function(){
     Route::prefix("settings")->name("settings.")->controller(DashboardSettingController::class)->group(function(){
         Route::get("account","account")->name("account");
         Route::get("redirect","redirect")->name("redirect");
+        Route::get("store","store")->name("store");
     });
 });
 
