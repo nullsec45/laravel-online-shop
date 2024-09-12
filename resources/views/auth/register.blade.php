@@ -1,5 +1,9 @@
 @extends('layouts.auth')
 
+@section('title')
+    Register
+@endsection
+
 @section('content')
 <div class="page-content page-auth" id="register">
     <div class="section-store-auth" data-aos="fade-up">
@@ -77,15 +81,18 @@
                                 required 
                                 autocomplete="new-password"
                             >
+                            @error('confirm_password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label>Store</label>
                             <p class="text-muted">
                                 Apakah anda juga ingin membuka toko?
                             </p>
-                            <div
-                            class="custom-control custom-radio custom-control-inline"
-                            >
+                            <div class="custom-control custom-radio custom-control-inline">
                                 <input
                                     type="radio"
                                     class="custom-control-input"
@@ -98,9 +105,7 @@
                                     Iya, boleh
                                 </label>
                             </div>
-                            <div
-                                class="custom-control custom-radio custom-control-inline"
-                            >
+                            <div class="custom-control custom-radio custom-control-inline">
                                 <input
                                     type="radio"
                                     class="custom-control-input"
@@ -112,6 +117,11 @@
                                 <label for="openStoreFalse" class="custom-control-label">
                                     Enggak, makasih
                                 </label>
+                                 @error('is_store_open')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                         <div class="form-group" v-if="is_store_open">
@@ -127,7 +137,7 @@
                                 autocomplete="store_name" 
                                 autofocus
                             >
-                            @error('name')
+                            @error('store_name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -141,12 +151,16 @@
                                     <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
                                 @endforeach
                             </select>
+                            @error('category')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <button
                             type="submit"
                             class="btn btn-success btn-block mt-4"
-                            :disabled="this.email_unavailable"
-                        >
+                            :disabled="this.email_unavailable">
                             Sign Up Now
                         </button>
                         <a href="{{ route('login') }}" class="btn btn-signup btn-block mt-2">
@@ -161,7 +175,7 @@
 @endsection
 
 @push('addon-script')
-    <script src="/vendor/vue/vue.js"></script>
+    <script src="{{url('/vendor/vue/vue.js')}}"></script>
     <script src="https://unpkg.com/vue-toasted"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
