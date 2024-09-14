@@ -63,29 +63,18 @@
                     <div class="dropdown-divider"></div>
                         <a href="{{route('logout')}}" 
                            class="dropdown-item" 
-                           onclick="event.preventDefault();document.getElementById('logoout-form').submit()">
+                           onclick="event.preventDefault();document.getElementById('logout-form').submit()">
                             Logout
                         </a>
 
-                        <form id="logout-form" action="{{route('logout')}}" method="POST" style="display:none"></form>
+                        <form id="logout-form" action="{{route('logout')}}" method="POST" style="display:none">
+                            @csrf
+                        </form>
                     </div>
                 </li>
                 <li class="nav-item">
                 <a href="#" class="nav-link d-inline-block mt-2">
                     <img src="{{url('/images/icon-cart-empty.svg')}}" alt="" />
-                </a>
-                </li>
-            </ul>
-
-            <ul class="navbar-nav d-block d-lg-none">
-                <li class="nav-item">
-                <a href="#" class="nav-link">
-                    Hi, Angga
-                </a>
-                </li>
-                <li class="nav-item">
-                <a href="#" class="nav-link d-inline-block">
-                    Cart
                 </a>
                 </li>
             </ul>
