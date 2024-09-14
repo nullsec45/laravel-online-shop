@@ -81,7 +81,7 @@
                                 required 
                                 autocomplete="new-password"
                             >
-                            @error('confirm_password')
+                            @error('password_confirmation')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -145,7 +145,7 @@
                         </div>
                         <div class="form-group" v-if="is_store_open">
                             <label>Kategori</label>
-                            <select name="category" class="form-control">
+                            <select name="categories_id" class="form-control">
                                 <option value="" disabled>Select Category</option>
                                 @foreach ($categories as $category)
                                     <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
@@ -222,11 +222,11 @@
         },
         data() {
             return {
-                name: "Angga Hazza Sett",
-                email: "kamujagoan@bwa.id",
-                is_store_open: true,
+                name: "",
+                email: "",
+                is_store_open: "",
                 store_name: "",
-                email_unavailable: false
+                email_unavailable: ""
             }
         },
       });
