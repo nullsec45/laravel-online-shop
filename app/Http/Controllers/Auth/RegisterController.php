@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Models\Category;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 
 class RegisterController extends Controller
@@ -29,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -52,51 +54,17 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'store_name' => ['nullable','string','max:255'],
+            'categories_id' => ['nullable','integer','exists:categories,id'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'is_store_open' => ['required']
         ]);
     }
 
     public function showRegistrationForm()
     {
     
-        $categories= [
-            [
-                "id" => "P001",
-                "name" => "Gadgets",
-                "icon" => "categories-gadgets.svg",
-                "slug" => "gadgets"
-            ],
-            [
-                "id" => "P002",
-                "name" => "Furniture",
-                "icon" => "categories-furniture.svg",
-                "slug" => "furniture"
-            ],
-            [
-                "id" => "P003",
-                "name" => "Makeup",
-                "icon" => "categories-makeup.svg",
-                "slug" => "makeup"
-            ],
-            [
-                "id" => "P004",
-                "name" => "Sneaker",
-                "icon" => "categories-sneaker.svg",
-                "slug" => "sneaker"
-            ],
-            [
-                "id" => "P005",
-                "name" => "Tools",
-                "icon" => "categories-tools.svg",
-                "slug" => "tools"
-            ],
-            [
-                "id" => "P006",
-                "name" => "Baby",
-                "icon" => "categories-baby.svg",
-                "slug" => "baby"
-            ]
-        ];    
+        $categories= Category::all();  
         
         return view('auth.register', [
             'categories' => $categories
@@ -115,10 +83,17 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'store_name' => isset($data['store_name']) ? $data['store_name'] : '-',
+            'categories_id '=> isset($data['categories_id']) ? $data['categories_id'] : '',
+            'store_status' => isset($data['is_store_open']) ? 1 : 0
         ]);
     }
 
     public function success(){
         return view("auth.success");
+    }
+    
+    public function check(Request $request){
+        return User::where("email", $request->email)->count() > 0 ? 'Unavalaible' : 'Available';
     }
 }
