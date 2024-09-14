@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{
     DashboardController as AdminDashboardController, 
@@ -17,6 +18,7 @@ use App\Http\Controllers\{
     DashboardProductController,
     DashboardTransactionController,
     DashboardSettingController,
+    DetailController
 };
 
 use App\Http\Controllers\Auth\RegisterController;
@@ -44,7 +46,7 @@ Route::get("/", [HomeController::class, "index"])->name("home");
 
 Route::get("categories",[CategoryController::class,"index"])->name("categories.index");
 Route::get("categories/{slug}",[CategoryController::class,"show"])->name("categories.show");
-Route::get("/products/{id}", [ProductController::class, "show"])->name("products.show");
+Route::get("/products/{slug}", [DetailController::class, "ShowProduct"])->name("products.show");
 Route::get("/cart", [CartController::class, "index"])->name("cart");
 Route::delete("/cart/{id}", [CartController::class, "delete"])->name("cart-delete");
 Route::post("/checkout", [CartController::class, "delete"])->name("checkout");
@@ -74,3 +76,5 @@ Route::prefix("admin")->name("admin.")->group(function(){
     Route::resource("products",ProductController::class);
     Route::resource("product-galleries",ProductGalleryController::class);
 });
+
+Route::get("register/check", [RegisterController::class,"check"])->name("api-register-check");
