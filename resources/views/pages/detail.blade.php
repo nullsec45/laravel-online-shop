@@ -18,7 +18,7 @@
             <nav>
               <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                  <a href="/index.html">Home</a>
+                  <a href="{{route('home')}}">Home</a>
                 </li>
                 <li class="breadcrumb-item active">
                   Product Details
@@ -72,13 +72,13 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-8">
-              <h1>{{ $product["name"] }}</h1>
-              <div class="owner">By {{ $product["user"]["store_name"] }}</div>
-              <div class="price">${{ number_format($product["price"]) }}</div>
+              <h1>{{ $product->name }}</h1>
+              <div class="owner">By {{ $product->user->store_name }}</div>
+              <div class="price">${{ number_format($product->price) }}</div>
             </div>
             <div class="col-lg-2" data-aos="zoom-in">
               @auth
-                  <form action="{{ url('detail-add', $product["id"]) }}" method="POST" enctype="multipart/form-data">
+                  <form action="{{ url('detail-add', $product->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <button
                       type="submit"
@@ -103,7 +103,7 @@
         <div class="container">
           <div class="row">
             <div class="col-12 col-lg-8">
-              {!! $product["description"] !!}
+              {!! $product->description !!}
             </div>
           </div>
         </div>
@@ -177,10 +177,10 @@
     data: {
       activePhoto: 0,
       photos: [
-        @foreach ($product["image-detail"] as $gallery)
+        @foreach ($product->galleries as $gallery)
         {
-          id: {{ $gallery["id"] }},
-          url: "{{ url($gallery["url"]) }}",
+          id: {{ $gallery->id }},
+          url: "{{ asset('storage/assets/products/'.$gallery->photos) }}",
         },
         @endforeach
       ],
