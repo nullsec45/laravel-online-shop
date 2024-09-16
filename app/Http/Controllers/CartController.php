@@ -2,43 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
     public function index(){
-        $data = [
-            "carts" => [
-                "product" => [
-                    [
-                        "id" => "P0001",
-                        "name" => "Apple Watch 4",
-                        "price" => 890,
-                        "photo" => "products-apple-watch.jpg",
-                        "slug" => "apple-watch-4",
-                        "user" => [
-                            "store_name" => "Fajar Store"
-                        ],
-                    ],
-                    [
-                        "id" => "P0002",
-                        "name" => "Orange Bogotta",
-                        "price" => 94509,
-                        "photo" => "products-orange-bogotta.jpg",
-                        "slug" => "orange-boggota",
-                        "user" => [
-                            "store_name" => "Keysa Store"
-                        ],
-                    ],
-                    
-                ]
-            ]
-        ];
+        $carts=Cart::with(["product.galleries","user"])->where("users_id", Auth::user()->id)->get();
 
-        return view("pages.cart", $data);
+        return view("pages.cart", ["carts" => $carts]);
     }
 
+    public function add(string $id){
+        $data=[
+            "products_id" => $id,
+            "users_id" => Auth::user()->id
+        ];
+
+        Cart::create($data);
+
+        return redirect()->route("cart");
+    }
     public function success(){
         return view("pages.success");
+    }
+
+    public function delete(string $id){
+        $cart=Cart::findOrFail($id);
+
+        $cart->delete();
+
+        return redirect()->route("cart");
     }
 }
