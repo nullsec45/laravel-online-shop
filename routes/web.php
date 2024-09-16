@@ -47,8 +47,11 @@ Route::get("/", [HomeController::class, "index"])->name("home");
 Route::get("categories",[CategoryController::class,"index"])->name("categories.index");
 Route::get("categories/{slug}",[CategoryController::class,"show"])->name("categories.show");
 Route::get("/products/{slug}", [DetailController::class, "ShowProduct"])->name("products.show");
+
 Route::get("/cart", [CartController::class, "index"])->name("cart");
+Route::post("/cart/{id}", [CartController::class, "add"])->name("cart-add");
 Route::delete("/cart/{id}", [CartController::class, "delete"])->name("cart-delete");
+
 Route::post("/checkout", [CartController::class, "delete"])->name("checkout");
 Route::get("/success", [CartController::class, "success"])->name("checkout-success");
 Route::get("/register/success", [RegisterController::class, "success"])->name("register-success");
