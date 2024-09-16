@@ -3,7 +3,6 @@
 @section('title')
     Store Cart
 @endsection
-{{-- @dd($carts) --}}
 @section('content')
  <!-- Page Content -->
  <div class="page-content page-cart">
@@ -45,27 +44,27 @@
               </thead>
               <tbody>
                 @php $totalPrice = 0 @endphp
-                @foreach ($carts["product"] as $cart)
+                @foreach ($carts as $cart)
                   <tr>
                     <td style="width: 20%;">
-                      @if($cart["photo"])
+                      @if($cart->product->galleries)
                         <img
-                          src="{{ url("/images/".$cart['photo']) }}"
+                          src="{{ asset('storage/assets/products/'.$cart->product->galleries->first()->photos) }}"
                           alt=""
                           class="cart-image"
                         />
                       @endif
                     </td>
                     <td style="width: 35%;">
-                      <div class="product-title">{{ $cart["name"] }}</div>
-                      <div class="product-subtitle">by {{ $cart["user"]["store_name"] }}</div>
+                      <div class="product-title">{{ $cart->product->name }}</div>
+                      <div class="product-subtitle">by {{ $cart->user->store_name }}</div>
                     </td>
                     <td style="width: 35%;">
-                      <div class="product-title">${{ number_format($cart["price"]) }}</div>
+                      <div class="product-title">${{ number_format($cart->product->price) }}</div>
                       <div class="product-subtitle">USD</div>
                     </td>
                     <td style="width: 20%;">
-                      <form action="{{ route('cart-delete', $cart["id"]) }}" method="POST">
+                      <form action="{{ route('cart-delete', $cart->id) }}" method="POST">
                         @method('DELETE')
                         @csrf
                         <button class="btn btn-remove-cart" type="submit">
@@ -74,7 +73,7 @@
                       </form>
                     </td>
                   </tr>
-                  @php $totalPrice += $cart["price"] @endphp
+                  @php $totalPrice += $cart->product->price @endphp
                 @endforeach
               </tbody>
             </table>
