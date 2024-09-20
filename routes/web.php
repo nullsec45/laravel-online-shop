@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\LocationControlller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{
     DashboardController as AdminDashboardController, 
@@ -56,10 +57,6 @@ Route::post("/checkout", [CartController::class, "delete"])->name("checkout");
 Route::get("/success", [CartController::class, "success"])->name("checkout-success");
 Route::get("/register/success", [RegisterController::class, "success"])->name("register-success");
 
-Route::get("/api-provinces", [ProductController::class, "apiProvinces"])->name("api-provinces");
-Route::get("/api-regencies", [ProductController::class, "apiRgencies"])->name("api-regencies");
-Route::get("/api-register-check", [RegisterController::class, "registerCheck"])->name("api-register-check");
-
 Route::get("/dashboard", [DashboardController::class,"index"])->name("dashboard.index");
 
 Route::prefix("dashboard")->name("dashboard.")->group(function(){
@@ -81,3 +78,6 @@ Route::prefix("admin")->name("admin.")->group(function(){
 });
 
 Route::get("register/check", [RegisterController::class,"check"])->name("api-register-check");
+
+Route::get("provinces", [LocationControlller::class, "provinces"])->name("api-provinces");
+Route::get("regencies/{province_id}", [LocationControlller::class, "regencies"])->name("api-regencies");
