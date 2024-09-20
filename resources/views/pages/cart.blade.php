@@ -211,7 +211,7 @@
 @endsection
 
 @push('addon-script')
-    <script src="/vendor/vue/vue.js"></script>
+    <script src="{{url('/vendor/vue/vue.js')}}"></script>
     <script src="https://unpkg.com/vue-toasted"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
@@ -236,7 +236,7 @@
           },
           getRegenciesData() {
             var self = this;
-            axios.get('{{ url('api/regencies') }}/' + self.provinces_id)
+            axios.get('{{ url('regencies') }}/' + self.provinces_id)
               .then(function (response) {
                   self.regencies = response.data;
               })
