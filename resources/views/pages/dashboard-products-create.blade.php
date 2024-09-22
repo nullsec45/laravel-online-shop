@@ -25,7 +25,7 @@ Store Dashboard Product Create
                         </ul>
                     </div>
                     @endif
-                    <form action="{{ route('dashboard.product-store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('dashboard.products.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="users_id" value="1">
                         <div class="card">
