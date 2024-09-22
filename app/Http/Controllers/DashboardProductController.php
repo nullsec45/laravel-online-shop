@@ -39,7 +39,7 @@ class DashboardProductController extends Controller
         return view('pages.dashboard-products', $data);
     }
 
-    public function detail(){
+    public function show(string $id){
         $data=[
             'product' =>  [
                 'id' => 1,
