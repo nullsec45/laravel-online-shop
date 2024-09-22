@@ -16,9 +16,10 @@
         <div class="dashboard-content">
             <div class="row">
                 <div class="col-12">
-                    <form action="{{ route('dashboard.settings.redirect','dashboard.settings.store') }}" method="POST"
+                    <form action="{{ route('dashboard.settings.store-update','dashboard.settings.store') }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
+                        @method("PUT")
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
@@ -81,14 +82,3 @@
     </div>
 </div>
 @endsection
-
-@push("addon-script")
-<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
-<script>
-function thisFileUpload() {
-    document.getElementById("file").click();
-}
-
-CKEDITOR.replace("editor");
-</script>
-@endpush
