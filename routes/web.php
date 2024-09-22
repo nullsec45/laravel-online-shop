@@ -62,10 +62,13 @@ Route::get("/dashboard", [DashboardController::class,"index"])->name("dashboard.
 Route::prefix("dashboard")->name("dashboard.")->group(function(){
     Route::resource("products",DashboardProductController::class);
     Route::resource("transactions",DashboardTransactionController::class);
-    Route::prefix("settings")->name("settings.")->controller(DashboardSettingController::class)->group(function(){
+    Route::prefix("settings")->name("settings.")
+            ->controller(DashboardSettingController::class)
+            ->group(function(){
         Route::get("account","account")->name("account");
-        Route::get("redirect","redirect")->name("redirect");
+        Route::put("account/update/{redirect}","update")->name("account-update");
         Route::get("store","store")->name("store");
+        Route::put("store/update/{redirect}","update")->name("store-update");
     });
 });
 
