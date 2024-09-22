@@ -17,9 +17,10 @@
             <div class="row">
                 <div class="col-12">
                     <form id="locations"
-                        action="{{ route('dashboard.settings.redirect','dashboard.settings-account') }}" method="POST"
+                        action="{{ route('dashboard.settings.account-update','dashboard.settings.account') }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
+                        @method("PUT")
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
@@ -51,16 +52,11 @@
                                                 value="{{ $user['address_two'] }}" />
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                   <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="provinces_id">Province</label>
-                                            <select name="provinces_id" id="provinces_id" class="form-control"
-                                                v-model="provinces_id" v-if="provinces">
-                                                @foreach ($provinces as $province)
-                                                    <option value="{{ $province['id'] }}" {{ $user['provinces_id'] == $province['id'] ? 'selected' : '' }}>
-                                                        {{ $province['name'] }}
-                                                    </option>
-                                                @endforeach
+                                            <select name="provinces_id" id="provinces_id" class="form-control" v-model="provinces_id" v-if="provinces">
+                                            <option v-for="province in provinces" :value="province.id">@{{ province.name }}</option>
                                             </select>
                                             <select v-else class="form-control"></select>
                                         </div>
@@ -68,13 +64,8 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="regencies_id">City</label>
-                                            <select name="regencies_id" id="regencies_id" class="form-control"
-                                                v-model="regencies_id" v-if="regencies">
-                                                @foreach ($regencies as $regency)
-                                                    <option value="{{ $regency['id'] }}" {{ $user['regencies_id'] == $regency['id'] ? 'selected' : '' }}>
-                                                        {{ $regency['name'] }}
-                                                    </option>
-                                                @endforeach
+                                            <select name="regencies_id" id="regencies_id" class="form-control" v-model="regencies_id" v-if="regencies">
+                                            <option v-for="regency in regencies" :value="regency.id">@{{regency.name }}</option>
                                             </select>
                                             <select v-else class="form-control"></select>
                                         </div>
@@ -118,44 +109,64 @@
 </div>
 @endsection
 
-@push("addon-script")
-<script src="/vendor/vue/vue.js"></script>
-<script src="https://unpkg.com/vue-toasted"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script>
-var locations = new Vue({
-    el: "#locations",
-    mounted() {
-        this.getProvincesData();
-    },
-    data: {
-        provinces: null,
-        regencies: null,
-        provinces_id: null,
-        regencies_id: null,
-    },
-    methods: {
-        getProvincesData() {
-            var self = this;
-            axios.get('')
-                .then(function(response) {
-                    self.provinces = response.data;
-                })
+@push('addon-script')
+    <script src="{{url('/vendor/vue/vue.js')}}"></script>
+    <script src="https://unpkg.com/vue-toasted"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      var locations = new Vue({
+        el: "#locations",
+        mounted() {
+          this.getProvincesData();
         },
-        getRegenciesData() {
-            var self = this;
-            axios.get('')
-                .then(function(response) {
+        data: {
+          provinces: null,
+          regencies: null,
+          provinces_id: "{{$user['provinces_id']}}",
+          regencies_id: "{{$user['regencies_id']}}",
+        },
+        methods: {
+            getRegenciesData() {
+                var self = this;
+                axios.get('{{ url('regencies') }}/' + self.provinces_id)
+                .then(function (response) {
                     self.regencies = response.data;
+                    
+                    if (self.regencies_id && self.regencies.some(regency => regency.id == self.regencies_id)) {
+                        self.regencies_id = self.regencies_id;
+                    } else {
+                        self.regencies_id = null; // Reset if the regency is not found
+                    }
                 })
+                .catch(function (error) {
+                    console.error("Error loading regencies:", error);
+                });
+            },
+            getProvincesData() {
+                var self = this;
+                axios.get('{{ route('api-provinces') }}')
+                .then(function (response) {
+                    self.provinces = response.data;
+
+                    if (self.provinces_id) {
+                        self.getRegenciesData();
+                        
+                    }
+                })
+                .catch(function (error) {
+                    console.error("Error loading provinces:", error);
+                });
+            },
         },
-    },
-    watch: {
-        provinces_id: function(val, oldVal) {
-            this.regencies_id = null;
-            this.getRegenciesData();
-        },
-    }
-});
-</script>
+        watch: {
+          provinces_id: function (val, oldVal) {
+            this.regencies = null; // Clear regencies data when province changes
+            this.regencies_id = null; // Reset regencies_id when province changes
+            if (val) {
+                this.getRegenciesData(); // Load regencies for the new province
+            }
+          },
+        }
+      });
+    </script>
 @endpush
