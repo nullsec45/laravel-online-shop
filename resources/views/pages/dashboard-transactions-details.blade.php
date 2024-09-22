@@ -69,7 +69,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <form action="{{ route('dashboard.transaction-update', $transaction['id']) }}" method="POST"
+                            <form action="{{ route('dashboard.transactions.update', $transaction['id']) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
