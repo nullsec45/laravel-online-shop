@@ -126,4 +126,8 @@ class DashboardTransactionController extends Controller
         
         return view("pages.dashboard-transactions-details", $data);   
     }
+
+    public function update(string $id){
+        
+    }
 }
