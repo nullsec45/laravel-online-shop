@@ -29,7 +29,8 @@ class User extends Authenticatable
         'provinces_id',
         'regencies_id',
         'zip_code',
-        'phone_number'
+        'phone_number',
+        'country'
     ];
 
     /**
