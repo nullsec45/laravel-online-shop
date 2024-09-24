@@ -42,34 +42,40 @@
                    <!-- Desktop Menu -->
             <ul class="navbar-nav d-none d-lg-flex">
                 <li class="nav-item dropdown">
-                <a
-                    href="#"
-                    class="nav-link"
-                    id="navbarDropdown"
-                    role="button"
-                    data-toggle="dropdown"
-                >
+                    <a
+                        href="#"
+                        class="nav-link"
+                        id="navbarDropdown"
+                        role="button"
+                        data-toggle="dropdown"
+                    >
                     <img
-                    src="{{url('/images/icon-user.png')}}"
-                    alt=""
-                    class="rounded-circle mr-2 profile-picture"
+                        src="{{url('/images/icon-user.png')}}"
+                        alt=""
+                        class="rounded-circle mr-2 profile-picture"
                     />
-                    Hi, {{Auth::user()->name}}
-                </a>
-                <div class="dropdown-menu">
-                    <a href="{{route('dashboard.index')}}" class="dropdown-item">Dashboard</a>
-                    <a href="{{route('dashboard.settings.account')}}" class="dropdown-item"
-                    >Settings</a>
-                    <div class="dropdown-divider"></div>
-                        <a href="{{route('logout')}}" 
-                           class="dropdown-item" 
-                           onclick="event.preventDefault();document.getElementById('logout-form').submit()">
-                            Logout
+                        Hi, {{Auth::user()->name}}
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="{{ Auth::user()->roles === 'ADMIN' ? route('admin.dashboard') :   route('dashboard.index')}} " 
+                        class="dropdown-item">
+                        Dashboard
                         </a>
+                        <a href="{{route('dashboard.settings.account')}}" 
+                        class="dropdown-item"
+                        >
+                            Settings
+                        </a>
+                        <div class="dropdown-divider"></div>
+                            <a href="{{route('logout')}}" 
+                            class="dropdown-item" 
+                            onclick="event.preventDefault();document.getElementById('logout-form').submit()">
+                                Logout
+                            </a>
 
-                        <form id="logout-form" action="{{route('logout')}}" method="POST" style="display:none">
-                            @csrf
-                        </form>
+                            <form id="logout-form" action="{{route('logout')}}" method="POST" style="display:none">
+                                @csrf
+                            </form>
                     </div>
                 </li>
                 <li class="nav-item">
