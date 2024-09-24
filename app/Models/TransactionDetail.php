@@ -14,8 +14,9 @@ class TransactionDetail extends Model
                "users_id",
                "transactions_id",
                "code",
+               "price",
                "products_id",
-               "transaction_status",
+               "shipping_status",
                "resi"
              ]; 
 }
