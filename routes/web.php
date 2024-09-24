@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\LocationControlller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{
@@ -53,7 +54,9 @@ Route::get("/cart", [CartController::class, "index"])->name("cart");
 Route::post("/cart/{id}", [CartController::class, "add"])->name("cart-add");
 Route::delete("/cart/{id}", [CartController::class, "delete"])->name("cart-delete");
 
-Route::post("/checkout", [CartController::class, "delete"])->name("checkout");
+Route::post("/checkout", [CheckoutController::class, "proccess"])->name("checkout");
+Route::post("/checkout/callback", [CheckoutController::class, "callback"])->name("midtrans-callback");
+
 Route::get("/success", [CartController::class, "success"])->name("checkout-success");
 Route::get("/register/success", [RegisterController::class, "success"])->name("register-success");
 
