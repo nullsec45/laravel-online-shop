@@ -1,7 +1,7 @@
  <!-- Sidebar -->
  <div class="border-right" id="sidebar-wrapper">
      <div class="sidebar-heading text-center">
-         <img src="{{url('/images/admin.png')}}" alt="" class="my-4 img-fluid" />
+         <img src="{{url('/images/admin.png')}}" alt="" class="my-4 img-fluid" width="200" />
      </div>
      <div class="list-group list-group-flush">
          <a href="{{ route('admin.dashboard') }}"
