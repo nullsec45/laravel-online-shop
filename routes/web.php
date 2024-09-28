@@ -66,7 +66,7 @@ Route::get("regencies/{province_id}", [LocationControlller::class, "regencies"])
 Route::group(["middleware" => "admin"], function(){
     Route::prefix("admin")->name("admin.")->group(function(){
         Route::get("dashboard",[AdminDashboardController::class,"index"])->name("dashboard");
-        Route::resource("categories", AdminCategoryController::class);
+        Route::resource("categories", AdminCategoryController::class)->except("show");
         Route::resource("users",UserController::class);
         Route::resource("products",ProductController::class);
         Route::resource("product-galleries",ProductGalleryController::class);
