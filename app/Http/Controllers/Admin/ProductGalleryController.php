@@ -64,15 +64,16 @@ class ProductGalleryController extends Controller
     }
 
     public function destroy(string $id){
-       $product=ProductGallery::findOrFail($id);
+        $product=ProductGallery::findOrFail($id);
 
-       if(!$product){
-          return redirect()->route("admin.product-galleries.index")->with("error","Photo product not found");
-       }
-       $file=$product->photos;
-       $this->helper->fileUploadHandling(null, null,"assets/products","delete",$file);
-       $product->delete();
+        if(!$product){
+            return redirect()->route("admin.product-galleries.index")->with("error","Photo product not found");
+        }
+        
+        $file=$product->photos;
+        $this->helper->fileUploadHandling(null, null,"assets/products","delete",$file);
+        $product->delete();
 
-       return redirect()->route("admin.product-galleries.index");
+        return redirect()->route("admin.product-galleries.index");
     }
 }
