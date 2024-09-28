@@ -47,6 +47,19 @@
                                         </div>
                                     </div>
                                 </div>
+                                  <div class="row d-none" id="imagePreviewContainer">
+                                    <div class="col-md-12">
+                                        <h6>Preview Image</h6>
+                                        <figure>
+                                            <img src="" 
+                                                class="img-fluid" 
+                                                alt="" id="imagePreview" width="30%">
+                                            <figcaption id="imageCaption">
+                                               
+                                            </figcaption>
+                                        </figure> 
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col text-right">
                                         <button type="submit" class="btn btn-success px-5">Save Now</button>
@@ -61,3 +74,24 @@
     </div>
 </div>
 @endsection
+
+@push('addon-script')
+<script>
+    document.getElementById("photos").addEventListener("change", function(event){
+        const file=event.target.files[0];
+        const fileVal=this.value;
+        console.log(fileVal);
+        if(file || fileVal){
+            document.getElementById("imagePreviewContainer").classList.remove("d-none");
+            const reader=new FileReader();
+            reader.onload=function(e){
+                document.getElementById("imagePreview").src=e.target.result;
+                document.getElementById("imageCaption").textContent=file.name
+            }
+               reader.readAsDataURL(file);
+        }else{
+            document.getElementById("imagePreviewContainer").classList.add("d-none");
+        }
+    });
+</script>
+@endpush
