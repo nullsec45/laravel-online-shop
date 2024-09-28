@@ -63,7 +63,6 @@ class CategoryController extends Controller
         return redirect()->route("admin.categories.index");
     }
     
-    public function show(){}
 
     public function edit($id){
         $category=Category::findorFail($id);
@@ -91,6 +90,13 @@ class CategoryController extends Controller
 
     public function destroy($id){
         $category=Category::findOrFail($id);
+
+        if(!$category){
+            return redirect()->route("admin.categories.index")->with("error","Category product not found");
+        }
+
+        $file=$category->photos;
+        $this->helper->fileUploadHandling(null, null,"assets/categories","delete",$file);
         $category->delete();
         
         return redirect()->route("admin.categories.index");
