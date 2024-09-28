@@ -39,9 +39,23 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="">Image Category</label>
-                                            <input type="file" name="photo" class="form-control">
+                                            <label for="imageCategory">Image Category</label>
+                                            <input type="file" name="photo" id="imageCategory" class="form-control">
+                                            
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="row d-none" id="imagePreviewContainer">
+                                    <div class="col-md-12">
+                                        <h6>Preview Image</h6>
+                                        <figure>
+                                            <img src="{{url('/storage/assets/categories/'.$category->photo)}}" 
+                                                class="img-fluid" 
+                                                alt="{{$category->photo}}" id="imagePreview">
+                                            <figcaption id="imageCaption">
+                                                {{$category->photo}}
+                                            </figcaption>
+                                        </figure> 
                                     </div>
                                 </div>
                                 <div class="row">
@@ -58,3 +72,22 @@
     </div>
 </div>
 @endsection
+
+@push('addon-script')
+<script>
+    document.getElementById("imageCategory").addEventListener("change", function(event){
+        const file=event.target.files[0];
+        if(file){
+            document.getElementById("imagePreviewContainer").classList.remove("d-none");
+            const reader=new FileReader();
+            reader.onload=function(e){
+                document.getElementById("imagePreview").src=e.target.result;
+                document.getElementById("imageCaption").textContent=file.name
+            }
+               reader.readAsDataURL(file);
+        }else{
+            document.getElementById("imagePreviewContainer").classList.add("d-none");
+        }
+    });
+</script>
+@endpush
