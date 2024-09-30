@@ -48,12 +48,7 @@ Route::get("categories",[CategoryController::class,"index"])->name("categories.i
 Route::get("categories/{slug}",[CategoryController::class,"show"])->name("categories.show");
 Route::get("/products/{slug}", [DetailController::class, "ShowProduct"])->name("products.show");
 
-Route::get("/cart", [CartController::class, "index"])->name("cart");
-Route::post("/cart/{id}", [CartController::class, "add"])->name("cart-add");
-Route::delete("/cart/{id}", [CartController::class, "delete"])->name("cart-delete");
 
-Route::post("/checkout", [CheckoutController::class, "proccess"])->name("checkout");
-Route::post("/checkout/callback", [CheckoutController::class, "callback"])->name("midtrans-callback");
 
 Route::get("/success", [CartController::class, "success"])->name("checkout-success");
 Route::get("/register/success", [RegisterController::class, "success"])->name("register-success");
@@ -61,6 +56,15 @@ Route::get("register/check", [RegisterController::class,"check"])->name("api-reg
 
 Route::get("provinces", [LocationControlller::class, "provinces"])->name("api-provinces");
 Route::get("regencies/{province_id}", [LocationControlller::class, "regencies"])->name("api-regencies");
+
+Route::group(["middleware" => "auth"], function(){
+    Route::get("/cart", [CartController::class, "index"])->name("cart");
+    Route::post("/cart/{id}", [CartController::class, "add"])->name("cart-add");
+    Route::delete("/cart/{id}", [CartController::class, "delete"])->name("cart-delete");
+
+    Route::post("/checkout", [CheckoutController::class, "proccess"])->name("checkout");
+    Route::post("/checkout/callback", [CheckoutController::class, "callback"])->name("midtrans-callback");
+});
 
 // Admin
 Route::group(["middleware" => "admin"], function(){
