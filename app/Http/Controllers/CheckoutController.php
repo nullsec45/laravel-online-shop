@@ -50,6 +50,31 @@ class CheckoutController extends Controller
         Config::$isProduction=config("services.midtrans.isProduction");
         Config::$isSanitized=config("services.midtrans.isSanitized");
         Config::$is3ds=config("services.midtrans.is3ds");
+      
+        $midtrans=[
+            "transaction_details" => [
+                "order_id" => $code,
+                "gross_amount" => (int) $request->total_price
+            ],
+            "customer_details" => [
+                "first_name" => Auth::user()->name,
+                "email" => Auth::user()->email
+            ],
+            "enabled_payments" => [
+                "gopay","permata_va","bank_transfer"
+            ],
+            "vtweb" => []
+        ];
+
+        try{
+            $paymentUrl=Snap::createTransaction($midtrans)->redirect_url;
+
+            Cart::where("users_id", Auth::user()->id)->delete();
+            
+            return redirect($paymentUrl);
+        }catch(\Exception $e){
+            echo $e->getMessage();
+        }
     }
 
     public function callback(Request $request){
