@@ -10,6 +10,9 @@ class CartController extends Controller
 {
     public function index(){
         $carts=Cart::with(["product.galleries","user"])->where("users_id", Auth::user()->id)->get();
+        if($carts->isEmpty()){
+            return redirect()->route("home");
+        }
 
         return view("pages.cart", ["carts" => $carts]);
     }
