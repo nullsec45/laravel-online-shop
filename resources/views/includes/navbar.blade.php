@@ -78,7 +78,7 @@
                             </form>
                     </div>
                 </li>
-                @if(Auth::user()->role == "USER")
+                @if(Auth::user()->roles == "USER")
                 <li class="nav-item">
                     <a href="{{route('cart')}}" class="nav-link d-inline-block mt-2">
                         @php
