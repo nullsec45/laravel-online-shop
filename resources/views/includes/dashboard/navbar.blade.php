@@ -24,7 +24,7 @@
                 <a href="{{ route('dashboard.settings.account') }}" class="dropdown-item">
                     Settings
                 </a>
-                <div class="dropdown-divider"></>
+                <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ route('logout') }}"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     Logout
