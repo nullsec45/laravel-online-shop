@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class DashboardProductController extends Controller
@@ -66,51 +67,14 @@ class DashboardProductController extends Controller
 
     public function create(){
         $data=[
-            "categories" => [
-                [
-                    "id" => "C1",
-                    "name" => "Gadgets",
-                    "icon" => "categories-gadgets.svg",
-                    "slug" => "gadgets"
-                ],
-                [
-                    "id" => "C2",
-                    "name" => "Furniture",
-                    "icon" => "categories-furniture.svg",
-                    "slug" => "furniture"
-                ],
-                [
-                    "id" => "C3",
-                    "name" => "Makeup",
-                    "icon" => "categories-makeup.svg",
-                    "slug" => "makeup"
-                ],
-                [
-                    "id" => "C4",
-                    "name" => "Sneaker",
-                    "icon" => "categories-sneaker.svg",
-                    "slug" => "sneaker"
-                ],
-                [
-                    "id" => "C5",
-                    "name" => "Tools",
-                    "icon" => "categories-tools.svg",
-                    "slug" => "tools"
-                ],
-                [
-                    "id" => "C6",
-                    "name" => "Baby",
-                    "icon" => "categories-baby.svg",
-                    "slug" => "baby"
-                ]
-            ]
+            "categories" => Category::select()->get()
         ];
 
         return view('pages.dashboard-products-create', $data);
     }
 
     public function store(){
-        return 'Oke';
+       
     }
 
     public function update(){
