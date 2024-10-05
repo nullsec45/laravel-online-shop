@@ -62,7 +62,7 @@ Store Dashboard Product Create
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>Thumbnails</label>
-                                            <input type="file" name="photo" class="form-control" />
+                                            <input type="file" name="photos" class="form-control" />
                                             <p class="text-muted">
                                                 Kamu dapat memilih lebih dari satu file
                                             </p>
