@@ -84,7 +84,7 @@
                             <div class="card-body">
                                 <div class="row">
                                    <div class="col-lg-12">
-                                     <h6 class="text-center">Tidak Ada Transaksi</h6>
+                                     <h6 class="text-center">Transactions Not Found</h6>
                                    </div>
                                 </div>
                             </div>
