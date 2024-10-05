@@ -81,6 +81,8 @@ Route::group(["middleware" => "admin"], function(){
 Route::group(["middleware" => "user"], function(){
     Route::get("/dashboard", [DashboardController::class,"index"])->name("dashboard.index");
     Route::prefix("dashboard")->name("dashboard.")->group(function(){
+        Route::post("products/gallery/upload",[DashboardProductController::class,"uploadGallery"])->name("products-gallery-upload");
+        Route::delete("products/gallery/delete/{id}",[DashboardProductController::class,"deleteGallery"])->name("products-gallery-delete");
         Route::resource("products",DashboardProductController::class);
         Route::resource("transactions",DashboardTransactionController::class);
         Route::prefix("settings")->name("settings.")
