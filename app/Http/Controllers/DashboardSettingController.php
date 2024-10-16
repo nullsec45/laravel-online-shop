@@ -28,7 +28,6 @@ class DashboardSettingController extends Controller
 
     public function update(Request $request, string $redirect){
         $data=$request->all();
-
         $item=Auth::user();
         $item->update($data);
 
