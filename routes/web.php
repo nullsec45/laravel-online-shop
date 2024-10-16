@@ -88,11 +88,11 @@ Route::group(["middleware" => "user"], function(){
         Route::prefix("settings")->name("settings.")
                 ->controller(DashboardSettingController::class)
                 ->group(function(){
-            Route::get("account","account")->name("account");
-            Route::put("account/update/{redirect}","update")->name("account-update");
-            Route::get("store","store")->name("store");
-            Route::put("store/update/{redirect}","update")->name("store-update");
-        });
+                    Route::get("store","store")->name("store");
+                    Route::put("store/update/{redirect}","update")->name("store-update");   
+                    Route::get("account","account")->name("account");
+                    Route::put("account/update/{redirect}","update")->name("account-update");
+                });
     });
 });
 
