@@ -3,7 +3,6 @@
 @section('title')
     Dashboard Transaction
 @endsection
-
 @section('content')
 <div class="section-content section-dashboard-home" data-aos="fade-up">
     <div class="container-fluid">
@@ -29,22 +28,22 @@
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                             aria-labelledby="pills-home-tab">
-                            @foreach ($sellTransactions as $transaction)
-                                <a href="{{ route('dashboard.transactions.show', $transaction['id']) }}" class="card card-list d-block">
+                            @forelse ($sellTransactions as $transaction)
+                                <a href="{{ route('dashboard.transactions.show', $transaction->id) }}" class="card card-list d-block">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-1">
-                                                <img src="{{ Storage::url($transaction['product']['galleries'][0]['photos'] ?? '') }}"
+                                                <img src="{{ asset('storage/assets/products/'.$transaction->product->galleries->first()->photos ?? '') }}"
                                                     class="w-50" />
                                             </div>
                                             <div class="col-md-4">
-                                                {{ $transaction['product']['name'] }}
+                                                {{ $transaction->product->name }}
                                             </div>
                                             <div class="col-md-3">
-                                                {{ $transaction['product']['user']['store_name'] }}
+                                                {{ $transaction->product->user->store_name }}
                                             </div>
                                             <div class="col-md-3">
-                                                {{ $transaction['created_at'] }}
+                                                {{ $transaction->created_at }}
                                             </div>
                                             <div class="col-md-1 d-none d-md-block">
                                                 <img src="/images/dashboard-arrow-right.svg" alt="" />
@@ -52,26 +51,34 @@
                                         </div>
                                     </div>
                                 </a>
-                            @endforeach
+                            @empty
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <h4>Tidak Ada Transaksi</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforelse
                         </div>
                         <div class="tab-pane fade" id="pills-profile" role="tabpanel"
                             aria-labelledby="pills-profile-tab">
-                           @foreach ($buyTransactions as $transaction)
-                                <a href="{{ route('dashboard.transactions.show', $transaction['id']) }}" class="card card-list d-block">
+                           @forelse ($buyTransactions as $transaction)
+                                <a href="{{ route('dashboard.transactions.show', $transaction->id) }}" class="card card-list d-block">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-1">
-                                                <img src="{{ Storage::url($transaction['product']['galleries'][0]['photos'] ?? '') }}"
+                                                <img src="{{ asset('storage/assets/products/'.$transaction->product->galleries->first()->photos ?? '') }}"
                                                     class="w-50" />
                                             </div>
                                             <div class="col-md-4">
-                                                {{ $transaction['product']['name'] }}
+                                                {{ $transaction->product->name}}
                                             </div>
                                             <div class="col-md-3">
-                                                {{ $transaction['product']['user']['store_name'] }}
+                                                {{ $transaction->product->user->store_name }}
                                             </div>
                                             <div class="col-md-3">
-                                                {{ $transaction['created_at'] }}
+                                                {{ $transaction->created_at }}
                                             </div>
                                             <div class="col-md-1 d-none d-md-block">
                                                 <img src="/images/dashboard-arrow-right.svg" alt="" />
@@ -79,7 +86,15 @@
                                         </div>
                                     </div>
                                 </a>
-                            @endforeach
+                            @empty
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <h4>Tidak Ada Transaksi</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>
