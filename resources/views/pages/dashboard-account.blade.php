@@ -28,28 +28,28 @@
                                         <div class="form-group">
                                             <label for="name">Your Name</label>
                                             <input type="text" class="form-control" id="name" name="name"
-                                                value="{{ $user['name'] }}" />
+                                                value="{{ $user->name }}" />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="email">Your Email</label>
                                             <input type="email" class="form-control" id="email" name="email"
-                                                value="{{ $user['email'] }}" />
+                                                value="{{ $user->email }}" />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="address_one">Address 1</label>
                                             <input type="text" class="form-control" id="address_one" name="address_one"
-                                                value="{{ $user['address_one'] }}" />
+                                                value="{{ $user->address_one }}" />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="address_two">Address 2</label>
                                             <input type="text" class="form-control" id="address_two" name="address_two"
-                                                value="{{ $user['address_two'] }}" />
+                                                value="{{ $user->address_two }}" />
                                         </div>
                                     </div>
                                    <div class="col-md-4">
@@ -74,21 +74,21 @@
                                         <div class="form-group">
                                             <label for="zip_code">Postal Code</label>
                                             <input type="text" class="form-control" id="zip_code" name="zip_code"
-                                                value="{{ $user['zip_code'] }}" />
+                                                value="{{ $user->zip_code }}" />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="country">Country</label>
                                             <input type="text" class="form-control" id="country" name="country"
-                                                value="{{ $user['country'] }}" />
+                                                value="{{ $user->country }}" />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="phone_number">Mobile</label>
                                             <input type="text" class="form-control" id="phone_number"
-                                                name="phone_number" value="{{ $user['phone_number'] }}" />
+                                                name="phone_number" value="{{ $user->phone_number }}" />
                                         </div>
                                     </div>
                                 </div>
