@@ -3,95 +3,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\TransactionDetail;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardTransactionController extends Controller
 {
     public function index(){
-        $data=[
-            "sellTransactions" => [
-                [
-                    'id' => 1,
-                    'product' => [
-                        'name' => 'Produk 1',
-                        'galleries' => [
-                            ['photos' => 'produk1.jpg']
-                        ],
-                        'user' => [
-                            'store_name' => 'Toko A'
-                        ],
-                    ],
-                    'created_at' => '2024-08-01',
-                ],
-                [
-                    'id' => 2,
-                    'product' => [
-                        'name' => 'Produk 2',
-                        'galleries' => [
-                            ['photos' => 'produk2.jpg']
-                        ],
-                        'user' => [
-                            'store_name' => 'Toko B'
-                        ],
-                    ],
-                    'created_at' => '2024-07-28',
-                ],
-                [
-                    'id' => 3,
-                    'product' => [
-                        'name' => 'Produk 3',
-                        'galleries' => [
-                            ['photos' => 'produk3.jpg']
-                        ],
-                        'user' => [
-                            'store_name' => 'Toko C'
-                        ],
-                    ],
-                    'created_at' => '2024-07-15',
-                ],
-            ],
-            "buyTransactions" =>  [
-                [
-                    'id' => 1,
-                    'product' => [
-                        'name' => 'Produk A',
-                        'galleries' => [
-                            ['photos' => 'produk_a.jpg']
-                        ],
-                        'user' => [
-                            'store_name' => 'Toko X'
-                        ],
-                    ],
-                    'created_at' => '2024-08-01',
-                ],
-                [
-                    'id' => 2,
-                    'product' => [
-                        'name' => 'Produk B',
-                        'galleries' => [
-                            ['photos' => 'produk_b.jpg']
-                        ],
-                        'user' => [
-                            'store_name' => 'Toko Y'
-                        ],
-                    ],
-                    'created_at' => '2024-07-28',
-                ],
-                [
-                    'id' => 3,
-                    'product' => [
-                        'name' => 'Produk C',
-                        'galleries' => [
-                            ['photos' => 'produk_c.jpg']
-                        ],
-                        'user' => [
-                            'store_name' => 'Toko Z'
-                        ],
-                    ],
-                    'created_at' => '2024-07-15',
-                ],
-            ]
-        ];
+        $sellTransactions=TransactionDetail::with(["transaction.user","product.galleries"])
+                                                ->whereHas("product", function($product){
+                                                    $product->where("users_id", Auth::user()->id);
+                                                })->get();
+
+
+        $buyTransactions=TransactionDetail::with(["transaction.user","product.galleries"])
+                                                ->whereHas("transaction", function($transaction){
+                                                    $transaction->where("users_id", Auth::user()->id);
+                                                })->get();
         
+        $data=[
+            'sellTransactions' => $sellTransactions,
+            'buyTransactions' => $buyTransactions
+        ];
+
         return view("pages.dashboard-transactions", $data);
     }
 
