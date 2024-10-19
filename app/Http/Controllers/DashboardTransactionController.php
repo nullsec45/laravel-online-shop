@@ -29,38 +29,22 @@ class DashboardTransactionController extends Controller
     }
 
     public function show(string $id){
+        $transaction=TransactionDetail::with(['transaction.user','product.galleries'])->findOrFail($id);
+
         $data = [
-            "transaction" => [
-                'id' => 1,
-                'code' => 'TRX123456',
-                'product' => [
-                    'name' => 'Produk A',
-                    'galleries' => [
-                        ['photos' => 'produk_a.jpg']
-                    ],
-                ],
-                'transaction' => [
-                    'user' => [
-                        'name' => 'Budi Santoso',
-                        'phone_number' => '08123456789',
-                        'address_one' => 'Jalan Mawar No. 10',
-                        'address_two' => 'Komplek Melati',
-                        'provinces_id' => 1,
-                        'regencies_id' => 1,
-                        'zip_code' => '12345',
-                        'country' => 'Indonesia',
-                    ],
-                    'transaction_status' => 'PENDING',
-                    'total_price' => 150000,
-                ],
-                'created_at' => '2024-08-01',
-            ]    
+            "transaction" => $transaction,
         ];
         
         return view("pages.dashboard-transactions-details", $data);   
     }
 
-    public function update(string $id){
-        
+    public function update(Request $request, string $id){
+        $data=$request->all();
+
+        $item=TransactionDetail::findOrFail($id);
+
+        $item->update($data);
+
+        return redirect()->route('dashboard.transactions.show', $id);
     }
 }
