@@ -24,7 +24,7 @@ class CategoryRequest extends FormRequest
     {
         return [
             "name" => ["required","string",Rule::unique('categories', 'name')->ignore($this->category)],
-            "photo" => ["required"]
+            "photo" => ["required","mimes|jpeg,jpg,png"]
         ];
     }
 }
