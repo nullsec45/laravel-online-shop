@@ -96,4 +96,8 @@ class RegisterController extends Controller
     public function check(Request $request){
         return User::where("email", $request->email)->count() > 0 ? 'Unavalaible' : 'Available';
     }
+
+    public function checkRegistered(Request $request){
+         return User::where("email", $request->email)->count() > 0 ? 'Registered' : 'Unregistered';
+    }
 }
