@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ProductGalleryRequest extends FormRequest
 {
@@ -21,9 +22,12 @@ class ProductGalleryRequest extends FormRequest
      */
     public function rules(): array
     {
+
         return [
             "products_id" => "required|exists:products,id",
-            "photos" => "required|image"
+            "photos" => "required|mimes:jpg,jpeg,png|max:2048"
         ];
     }
+
+    
 }
