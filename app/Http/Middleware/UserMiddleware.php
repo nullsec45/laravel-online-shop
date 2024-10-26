@@ -16,7 +16,10 @@ class UserMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::check() && Auth::user()->roles == "USER"){
+        
+        $route=$request->route()->getName();
+        
+        if((Auth::check() && Auth::user()->roles == "USER") || $route == "dashboard.transactions.show" || $route == "dashboard.settings.account"){
             return $next($request);
         }
 
