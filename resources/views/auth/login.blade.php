@@ -58,6 +58,9 @@
                         >
                             Sign Up
                         </a>
+                        <a href="{{route('forgot-password')}}" class="mt-4">
+                            Forgot Password ?
+                        </a>
                     </form>
                 </div>
             </div>
@@ -65,3 +68,25 @@
     </div>
 </div>
 @endsection
+
+@push('addon-style')
+<link href=" https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.min.css " rel="stylesheet">
+@endpush
+
+@push('addon-scipt')
+<script src=" https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.all.min.js "></script>
+<script>
+      let success_reset="{{Session::get('reset_success') ?? 'false'}}";
+
+      if(success_reset !== 'false'){
+            Swal.fire({
+                // position: 'top-end',
+                width: 600,
+                icon: 'success',
+                title: success_reset,
+                showConfirmButton: false,
+                timer: 2000
+            });
+        }
+</script>
+@endpush
