@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\LocationControlller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{
@@ -46,24 +47,29 @@ Route::get("/", [HomeController::class, "index"])->name("home");
 
 Route::get("categories",[CategoryController::class,"index"])->name("categories.index");
 Route::get("categories/{slug}",[CategoryController::class,"show"])->name("categories.show");
-Route::get("/products/{slug}", [DetailController::class, "ShowProduct"])->name("products.show");
+Route::get("products/{slug}", [DetailController::class, "ShowProduct"])->name("products.show");
 
 
 
-Route::get("/success", [CartController::class, "success"])->name("checkout-success");
-Route::get("/register/success", [RegisterController::class, "success"])->name("register-success");
+Route::get("success", [CartController::class, "success"])->name("checkout-success");
+Route::get("register/success", [RegisterController::class, "success"])->name("register-success");
 Route::get("register/check", [RegisterController::class,"check"])->name("api-register-check");
+Route::get("register/check-registered", [RegisterController::class,"checkRegistered"])->name("api-check-registered");
+Route::get("forgot-password", [ForgotPasswordController::class,"index"])->name("forgot-password");
+Route::post("forgot-password/send-token", [ForgotPasswordController::class,"sendToken"])->name("forgot-password-send-token");
+Route::get("forgot-password/reset-password-form/{email}/{token}", [ForgotPasswordController::class,"resetPasswordForm"])->name("forgot-password-reset-password-form");
+Route::put("forgot-password/reset-password/{email}/{token}", [ForgotPasswordController::class,"resetPassword"])->name("forgot-password-reset-password");
 
 Route::get("provinces", [LocationControlller::class, "provinces"])->name("api-provinces");
 Route::get("regencies/{province_id}", [LocationControlller::class, "regencies"])->name("api-regencies");
 
 Route::group(["middleware" => "auth"], function(){
-    Route::get("/cart", [CartController::class, "index"])->name("cart");
-    Route::post("/cart/{id}", [CartController::class, "add"])->name("cart-add");
-    Route::delete("/cart/{id}", [CartController::class, "delete"])->name("cart-delete");
+    Route::get("cart", [CartController::class, "index"])->name("cart");
+    Route::post("cart/{id}", [CartController::class, "add"])->name("cart-add");
+    Route::delete("cart/{id}", [CartController::class, "delete"])->name("cart-delete");
 
-    Route::post("/checkout", [CheckoutController::class, "proccess"])->name("checkout");
-    Route::post("/checkout/callback", [CheckoutController::class, "callback"])->name("midtrans-callback");
+    Route::post("checkout", [CheckoutController::class, "proccess"])->name("checkout");
+    Route::post("checkout/callback", [CheckoutController::class, "callback"])->name("midtrans-callback");
 });
 
 // Admin
