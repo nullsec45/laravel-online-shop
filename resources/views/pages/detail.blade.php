@@ -73,6 +73,13 @@
           <div class="row">
             <div class="col-lg-8">
               <h1>{{ $product->name }}</h1>
+                <div>
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span>
+                </div>
               <div class="owner">By {{ $product->user->store_name }}</div>
               <div class="price">${{ number_format($product->price) }}</div>
             </div>
@@ -104,6 +111,35 @@
           <div class="row">
             <div class="col-12 col-lg-8">
               {!! $product->description !!}
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="comment-section">
+        <div class="container">
+          <div class="row">
+              <div class="col-2">
+               <button
+                      type="submit"
+                      class="btn btn-success px-4 text-white btn-block mb-3"
+                    >
+                      Add Review
+                    </button>
+            </div>
+          </div>
+          <div class="row d-none">
+            <div class="col-12 col-lg-8">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">Review</label>
+                  <div>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                  </div>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              </div>
             </div>
           </div>
         </div>
