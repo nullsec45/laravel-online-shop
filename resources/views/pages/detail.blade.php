@@ -3,8 +3,6 @@
 @section('title')
     Store Detail Page
 @endsection
-{{-- @dd($product) --}}
-
 @section('content')
 <div class="page-content page-details">
     <section
@@ -115,58 +113,56 @@
           </div>
         </div>
       </section>
-      <section class="comment-section">
+      <section class="comment-section" id="reviewSection">
         <div class="container">
+          
           <div class="row">
-              <div class="col-2">
-               <button
-                      type="submit"
-                      class="btn btn-success px-4 text-white btn-block mb-3"
-                    >
-                      Add Review
-                    </button>
+              <div class="col-lg-3">
+                  <button type="submit" 
+                          class="btn btn-success px-4 text-white btn-block mb-3"
+                          @click="toggleReviewContainer"
+                  >
+                    <span v-if="isAuthenticated">Review</span>
+                    <span v-else>Sign to review</span>
+                  </button>
             </div>
           </div>
-          <div class="row d-none">
-            <div class="col-12 col-lg-8">
-              <div class="form-group">
-                <label for="exampleFormControlTextarea1">Review</label>
-                  <div>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                  </div>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+          <form action="{{route("product-reviews",$product->id)}}" method="POST">
+            @csrf()
+            <div class="row" v-if="showReviewContainer">
+              <div class="col-lg-10">
+                <div class="form-group">
+                  <label for="product_reviews">Review</label>
+                    <!-- <div>
+                      <span class="fa fa-star" v-for="star in 5" :key="star"></span>
+                    </div> -->
+                    <textarea class="form-control" id="product_reviews" name="product_reviews" rows="3"></textarea>
+                </div>
               </div>
+              <div class="col-2">
+                      <button
+                        type="submit"
+                        class="btn btn-success px-4 text-white btn-block mb-3"
+                      >
+                        Add Review
+                      </button>
+                </div>
             </div>
-          </div>
+          </form>
         </div>
       </section>
       <section class="store-review">
         <div class="container">
           <div class="row">
             <div class="col-12 col-lg-8 mt-3 mb-3">
-              <h5>Customer Review (3)</h5>
+              <h5>Customer Review ({{count($reviews)}})</h5>
             </div>
           </div>
           <div class="row">
             <div class="col-12 col-lg-8">
               <ul class="list-unstyled">
-                <li class="media">
-                  <img
-                    src="{{url("/images/icons-testimonial-1.png")}}"
-                    alt=""
-                    class="mr-3 rounded-circle"
-                  />
-                  <div class="media-body">
-                    <h5 class="mt-2 mb-1">Hazza Risky</h5>
-                    I thought it was not good for living room. I really happy
-                    to decided buy this product last week now feels like
-                    homey.
-                  </div>
-                </li>
+    
+              @foreach($reviews as $review)
                 <li class="media">
                   <img
                     src="{{url("/images/icons-testimonial-2.png")}}"
@@ -174,25 +170,11 @@
                     class="mr-3 rounded-circle"
                   />
                   <div class="media-body">
-                    <h5 class="mt-2 mb-1">Anna Sukkirata</h5>
-                    Color is great with the minimalist concept. Even I thought
-                    it was made by Cactus industry. I do really satisfied with
-                    this.
+                    <h5 class="mt-2 mb-1">{{$review['user_name']}}</h5>
+                    <p>{{$review['comment']}}</p>
                   </div>
                 </li>
-                <li class="media">
-                  <img
-                    src="{{url("/images/icons-testimonial-3.png")}}"
-                    alt=""
-                    class="mr-3 rounded-circle"
-                  />
-                  <div class="media-body">
-                    <h5 class="mt-2 mb-1">Dakimu Wangi</h5>
-                    When I saw at first, it was really awesome to have with.
-                    Just let me know if there is another upcoming product like
-                    this.
-                  </div>
-                </li>
+              @endforeach
               </ul>
             </div>
           </div>
@@ -201,6 +183,15 @@
     </div>
   </div>
 @endsection
+
+@push('addon-style')
+<style>
+.fa-star {
+  color: #ffc107;
+  margin-right: 5px;
+}
+</style>
+@endpush
 
 @push('addon-script')
 <script src="{{url("/vendor/vue/vue.js")}}"></script>
@@ -224,6 +215,30 @@
     methods: {
       changeActive(id) {
         this.activePhoto = id;
+      },
+    },
+  });
+
+  let dataReviewSection={
+      showReviewContainer: false,
+      isAuthenticated: false, 
+  }
+
+  @auth
+      dataReviewSection.isAuthenticated=true;
+  @endauth
+
+  var reviewSection = new Vue({
+    el: "#reviewSection",
+    data:dataReviewSection,
+    methods: {
+      toggleReviewContainer() {
+        if (this.isAuthenticated) {
+          this.showReviewContainer = !this.showReviewContainer;
+        } else {
+          alert('Please sign in to add a review.');
+          window.location.href="{{route('login')}}" 
+        }
       },
     },
   });
