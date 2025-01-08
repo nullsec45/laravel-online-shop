@@ -4,6 +4,7 @@
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\LocationControlller;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{
     DashboardController as AdminDashboardController, 
@@ -70,6 +71,7 @@ Route::group(["middleware" => "auth"], function(){
 
     Route::post("checkout", [CheckoutController::class, "proccess"])->name("checkout");
     Route::post("checkout/callback", [CheckoutController::class, "callback"])->name("midtrans-callback");
+    Route::post("products/review/{id}", [ReviewController::class,"store"])->name("product-reviews");
 });
 
 // Admin
