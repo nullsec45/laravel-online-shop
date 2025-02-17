@@ -15,6 +15,8 @@ class DetailController extends Controller
                                 ->get()
                                 ->map(function ($review) {
                                     return [
+                                        'id' => $review->id,
+                                        'product_id' => $review->products_id,
                                         'user_name' => $review->comment->user->name ?? 'Unknown User',
                                         'comment' => $review->comment->comment ?? 'No Comment'
                                     ];
