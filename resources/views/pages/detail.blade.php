@@ -113,9 +113,8 @@
           </div>
         </div>
       </section>
-      <section class="comment-section" id="reviewSection">
-        <div class="container">
-          
+      <section class="comment-section" id="addReviewSection">
+        <div class="container"> 
           <div class="row">
               <div class="col-lg-3">
                   <button type="submit" 
@@ -127,15 +126,15 @@
                   </button>
             </div>
           </div>
-          <form action="{{route("product-reviews",$product->id)}}" method="POST">
+          <form action="{{route("add-reviews",$product->id)}}" method="POST">
             @csrf()
             <div class="row" v-if="showReviewContainer">
               <div class="col-lg-10">
                 <div class="form-group">
                   <label for="product_reviews">Review</label>
-                    <!-- <div>
+                    <div>
                       <span class="fa fa-star" v-for="star in 5" :key="star"></span>
-                    </div> -->
+                    </div>
                     <textarea class="form-control" id="product_reviews" name="product_reviews" rows="3"></textarea>
                 </div>
               </div>
@@ -151,7 +150,7 @@
           </form>
         </div>
       </section>
-      <section class="store-review">
+      <section class="store-review" id="reviewSection">
         <div class="container">
           <div class="row">
             <div class="col-12 col-lg-8 mt-3 mb-3">
@@ -172,6 +171,12 @@
                   <div class="media-body">
                     <h5 class="mt-2 mb-1">{{$review['user_name']}}</h5>
                     <p>{{$review['comment']}}</p>
+                     <button class="btn btn-primary btn-sm" @click="editReview(index)">Edit</button>
+                     <button class="btn btn-danger btn-sm ml-2" 
+                              @click="confirmDelete({{ $review['id'] }},{{ $review['product_id'] }})"
+                      >
+                      Delete
+                    </button>
                   </div>
                 </li>
               @endforeach
@@ -191,9 +196,11 @@
   margin-right: 5px;
 }
 </style>
+<link href=" https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.min.css " rel="stylesheet">
 @endpush
 
 @push('addon-script')
+<script src=" https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js "></script>
 <script src="{{url("/vendor/vue/vue.js")}}"></script>
 <script>
   var gallery = new Vue({
@@ -228,8 +235,8 @@
       dataReviewSection.isAuthenticated=true;
   @endauth
 
-  var reviewSection = new Vue({
-    el: "#reviewSection",
+  var addReviewSection = new Vue({
+    el: "#addReviewSection",
     data:dataReviewSection,
     methods: {
       toggleReviewContainer() {
@@ -241,6 +248,63 @@
         }
       },
     },
+  });
+
+  var reviewSection=new Vue({
+    el:'#reviewSection',
+    methods:{
+      deleteReview(reviewId,productId){
+        fetch(`{{ url('products/review') }}/${reviewId}/${productId}`,{
+          method:"DELETE",
+          headers:{
+            'Content-Type':'application/json',
+            'X-CSRF-TOKEN':'{{ csrf_token() }}'
+          }
+        }).then((res) => {
+          return res.json();
+        }).then((res) => {
+          if(!res.success){
+            Swal.fire({
+              icon: "error",
+              title: "Failed to delete review...",
+              text: res.message,
+            });
+          }else{
+            Swal.fire({
+              icon: "success",
+              title: "Success",
+              text:res.message,
+              showConfirmButton: false,
+              timer: 1000
+            });
+
+            setTimeout(function () {
+              location.reload();
+            },1500);
+          }
+        }).catch(error => {
+           Swal.fire({
+              icon: "error",
+              title: "Failed to delete review...",
+              text: error,
+            });
+        })
+      },
+      confirmDelete(reviewId,productId){
+        Swal.fire({
+          title:'Are you sure you want to delete the review?',
+          text:'Deleted reviews cannot be restored',
+          icon:'warning',
+          showCancelButton:true,
+          confirmButtonColor:'#3085d6',
+          confirmButtonText:'Ya'
+        }).then((result) => {
+            if(result.isConfirmed){
+              this.deleteReview(reviewId,productId);
+            }
+        });
+      }
+    }
   });
 </script>
 @endpush

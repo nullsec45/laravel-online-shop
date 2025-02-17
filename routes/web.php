@@ -71,7 +71,8 @@ Route::group(["middleware" => "auth"], function(){
 
     Route::post("checkout", [CheckoutController::class, "proccess"])->name("checkout");
     Route::post("checkout/callback", [CheckoutController::class, "callback"])->name("midtrans-callback");
-    Route::post("products/review/{id}", [ReviewController::class,"store"])->name("product-reviews");
+    Route::post("products/review/{id}", [ReviewController::class,"store"])->name("add-reviews");
+    Route::delete("products/review/{id}/{productId}", [ReviewController::class,"destroy"])->name("delete-review");
 });
 
 // Admin
