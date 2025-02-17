@@ -20,11 +20,11 @@ class ForgotPasswordController extends Controller
     }
 
      public function sendToken(ForgotPasswordRequest $forgotPasswordRequest){
-         try {
+        try {
 
             $token = Str::random(64);
 
-             DB::table('password_reset_tokens')->where('email', $forgotPasswordRequest->email)->delete();
+            DB::table('password_reset_tokens')->where('email', $forgotPasswordRequest->email)->delete();
 
             DB::table('password_reset_tokens')->insert([
                 'email' => $forgotPasswordRequest->email,
@@ -35,10 +35,11 @@ class ForgotPasswordController extends Controller
             $hashEmail=Hash::make($forgotPasswordRequest->email);
             $base64EncodeEmail=base64_encode($hashEmail);
 
-            Mail::send('auth.mail-reset-password-token', ['token' => $token,'email' => $base64EncodeEmail], function ($message) use ($forgotPasswordRequest) {
+           $mailTO=Mail::send('auth.mail-reset-password-token', ['token' => $token,'email' => $base64EncodeEmail], function ($message) use ($forgotPasswordRequest) {
                 $message->to($forgotPasswordRequest->email);
                 $message->subject('Reset Password');
             });
+
 
             return redirect()->back()->with('link_success', ' Reset Link Send Successfully!');
         } catch (\Exception $e) {
