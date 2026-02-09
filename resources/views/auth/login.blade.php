@@ -50,7 +50,7 @@
                             type="submit"
                             class="btn btn-success btn-block w-75 mt-4"
                         >
-                            Sign In to My Account
+                            Sign In
                         </button>
                         <a
                             href="{{ route('register') }}"
@@ -58,6 +58,25 @@
                         >
                             Sign Up
                         </a>
+                        <div class="row w-75 mt-3">
+                            <div class="col"><hr></div>
+                            <div class="col-auto text-muted small">OR</div>
+                            <div class="col"><hr></div>
+                        </div>
+                        <div class="mt-3">
+                            <a href="{{route('auth.provider','google')}}" class="btn btn-danger btn-block w-75 mb-2">
+                                <i class="fab fa-google mr-2"></i> Login with Google
+                            </a>
+                            <a href="{{route('auth.provider','facebook')}}" class="btn btn-primary btn-block w-75">
+                                <i class="fab fa-facebook-f mr-2"></i> Login with Facebook
+                            </a>
+                        </div>
+
+                        <div class="mt-4">
+                            <a href="{{route('forgot-password')}}">
+                                Forgot Password ?
+                            </a>
+                        </div>
                         <a href="{{route('forgot-password')}}" class="mt-4">
                             Forgot Password ?
                         </a>
@@ -71,6 +90,7 @@
 
 @push('addon-style')
 <link href=" https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.min.css " rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 @endpush
 
 @push('addon-scipt')
